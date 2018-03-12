@@ -12,7 +12,12 @@ public class DrumTriggers : MonoBehaviour {
 	void OnCollisionEnter(Collision collision)
 	{
 		int seqPos = (int)sequencer.GetSequencerPosition ();
-		sequencer.AddNote (note, seqPos, seqPos + 1);
+		bool eraseNote = sequencer.NoteExistsInRange (note, seqPos, seqPos + 1);
+		if (eraseNote == false) {
+			sequencer.AddNote (note, seqPos, seqPos + 1);
+		} else if (eraseNote == true) {
+			sequencer.RemoveNotesInRange(note, seqPos, seqPos + 1);
+		}
 	}
 	// Update is called once per frame
 	void Update () {
