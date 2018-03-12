@@ -266,7 +266,7 @@ GameObject:
   - component: {fileID: 373103049}
   - component: {fileID: 373103048}
   m_Layer: 0
-  m_Name: Trigger2
+  m_Name: D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -284,7 +284,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   helmController: {fileID: 1530286152}
-  note: 81
+  note: 62
   subVolume: 0
 --- !u!23 &373103049
 MeshRenderer:
@@ -365,7 +365,7 @@ GameObject:
   - component: {fileID: 419598429}
   - component: {fileID: 419598428}
   m_Layer: 0
-  m_Name: Trigger1
+  m_Name: A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -383,7 +383,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   helmController: {fileID: 1530286152}
-  note: 50
+  note: 93
   subVolume: 0
 --- !u!23 &419598429
 MeshRenderer:
@@ -451,33 +451,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!83 &469974454
-AudioClip:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: helm
-  m_LoadType: 0
-  m_Channels: 1
-  m_Frequency: 48000
-  m_BitsPerSample: 32
-  m_Length: 0
-  m_IsTrackerFormat: 0
-  m_Ambisonic: 0
-  m_SubsoundIndex: 0
-  m_PreloadAudioData: 1
-  m_LoadInBackground: 0
-  m_Legacy3D: 0
-  m_Resource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_CompressionFormat: 0
-  m_EditorResource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_EditorCompressionFormat: 0
 --- !u!1 &551428836
 GameObject:
   m_ObjectHideFlags: 0
@@ -491,7 +464,7 @@ GameObject:
   - component: {fileID: 551428838}
   - component: {fileID: 551428837}
   m_Layer: 0
-  m_Name: Trigger4
+  m_Name: E
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -509,7 +482,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   helmController: {fileID: 1530286152}
-  note: 67
+  note: 52
   subVolume: 0
 --- !u!23 &551428838
 MeshRenderer:
@@ -577,6 +550,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!83 &646355710
+AudioClip:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: helm
+  m_LoadType: 0
+  m_Channels: 1
+  m_Frequency: 48000
+  m_BitsPerSample: 32
+  m_Length: 0
+  m_IsTrackerFormat: 0
+  m_Ambisonic: 0
+  m_SubsoundIndex: 0
+  m_PreloadAudioData: 1
+  m_LoadInBackground: 0
+  m_Legacy3D: 0
+  m_Resource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_CompressionFormat: 0
+  m_EditorResource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_EditorCompressionFormat: 0
 --- !u!1 &1391176560
 GameObject:
   m_ObjectHideFlags: 0
@@ -590,7 +590,7 @@ GameObject:
   - component: {fileID: 1391176562}
   - component: {fileID: 1391176561}
   m_Layer: 0
-  m_Name: Trigger5
+  m_Name: C
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -746,7 +746,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: 2cae8e82e29c42342a057127076a1d7a,
     type: 2}
-  m_audioClip: {fileID: 469974454}
+  m_audioClip: {fileID: 646355710}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -843,7 +843,7 @@ GameObject:
   - component: {fileID: 1585708021}
   - component: {fileID: 1585708020}
   m_Layer: 0
-  m_Name: Trigger3
+  m_Name: G
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -861,7 +861,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   helmController: {fileID: 1530286152}
-  note: 64
+  note: 79
   subVolume: 0
 --- !u!23 &1585708021
 MeshRenderer:

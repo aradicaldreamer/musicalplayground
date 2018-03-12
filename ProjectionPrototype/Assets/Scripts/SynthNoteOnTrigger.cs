@@ -14,6 +14,6 @@ public class SynthNoteOnTrigger : MonoBehaviour {
 		helmController.SetParameterPercent(AudioHelm.Param.kSubVolume, subVolume);
 
 		// int note, float velocity (how hard note is hit), float length (how long the note decays)
-		helmController.NoteOn(note, 1.0f, 1.25f); 
+		helmController.NoteOn(note, 1.0f, 2.0f); 
 	}
 }
