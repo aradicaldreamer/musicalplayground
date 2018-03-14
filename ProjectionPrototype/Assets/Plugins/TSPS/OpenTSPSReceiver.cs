@@ -107,7 +107,7 @@ namespace TSPS
 					OSCPacket packet = receiver.Receive();
 					if (packet!=null) {
 						lock(processQueue){
-							Debug.Log( "adding  packets " + processQueue.Count );
+							//Debug.Log( "adding  packets " + processQueue.Count );
 							if (packet.IsBundle()) {
 								ArrayList messages = packet.Values;
 								for (int i=0; i<messages.Count; i++) {
