@@ -8,6 +8,9 @@ public class HelmManagerScript : MonoBehaviour {
 	public AudioHelm.HelmController Arp;
 	public AudioHelm.HelmController AirDrone;
 	public AudioHelm.HelmController Lead;
+	public AudioHelm.HelmController Snare;
+	public AudioHelm.HelmController Hihat;
+	public AudioHelm.HelmController CymbalHit;
 
 	public AudioHelm.Sequencer KickSeq;
 	public AudioHelm.Sequencer SnareSeq;
@@ -41,6 +44,8 @@ public class HelmManagerScript : MonoBehaviour {
 	public int LeadNote3 = 91;
 	public int LeadNote4 = 88;
 
+	public int CymbalNote = 72; 
+
 	//Drone	
 	public float DroneY = 0.5f; // variable example to change a synth parameter
 	public float DroneX = 0.2f; // variable example to change a synth parameter
@@ -60,6 +65,19 @@ public class HelmManagerScript : MonoBehaviour {
 	public float BassOSC2tune = 0;
 	public float BassFeedbackTune = 0.5f;
 	public float BassFeedbackAmount = 0.5f;
+	//Lead
+	public float LeadDelayMix = 0.0f;
+	public float LeadDelayFeedback = 0.5f;
+	public float LeadDelaySync = 0.5f;
+	public float LeadSustain = 0.2f;
+	//Snare
+	public float SnareDelayMix = 0.0f;
+	public float SnareDelayFeedback = 0.5f;
+	public float SnareDelaySync = 0.4f;
+	//Hihat
+	public float HihatDelayMix = 0.0f;
+	public float HihatDelayFeedback = 0.5f;
+	public float HihatDelaySync = 0.4f;
 
 	public float time = 1.5f;
 
@@ -71,7 +89,8 @@ public class HelmManagerScript : MonoBehaviour {
 		Invoke("BassEnable", time*8);
 		Invoke("DrumsEnable", time*12);
 		Invoke("ArpEnable", time*16);
-		Invoke ("LeadEnable", time * 20);
+		Invoke ("LeadEnable", time*20);
+		Invoke ("CymbalHitEnable", time*12);
 	}
 	void DroneEnable()
 	{
@@ -130,6 +149,10 @@ public class HelmManagerScript : MonoBehaviour {
 		LeadSeq.AddNote (LeadNote3, 8, 9);
 		LeadSeq.AddNote (LeadNote4, 13, 14);
 	}
+	void CymbalHitEnable()
+	{
+		CymbalHit.NoteOn (CymbalNote, 1.0f, 2.0f);
+	}
 	// Update is called once per frame
 	void Update () {
 		//Drone
@@ -152,7 +175,18 @@ public class HelmManagerScript : MonoBehaviour {
 		Bass.SetParameterValue(AudioHelm.Param.kOsc2Tune, BassOSC2tune);
 		Bass.SetParameterPercent(AudioHelm.Param.kOscFeedbackAmount, BassFeedbackTune);
 		Bass.SetParameterPercent(AudioHelm.Param.kOscFeedbackTune, BassFeedbackAmount);
-
-
+		//Lead
+		Lead.SetParameterPercent(AudioHelm.Param.kDelayDryWet, LeadDelayMix);
+		Lead.SetParameterPercent(AudioHelm.Param.kDelayFeedback, LeadDelayFeedback);
+		Lead.SetParameterPercent(AudioHelm.Param.kDelaySync, LeadDelaySync);
+		Lead.SetParameterPercent(AudioHelm.Param.kAmplitudeSustain, LeadSustain);
+		//Snare
+		Snare.SetParameterPercent(AudioHelm.Param.kDelayDryWet, SnareDelayMix);
+		Snare.SetParameterPercent(AudioHelm.Param.kDelayFeedback, SnareDelayFeedback);
+		Snare.SetParameterPercent(AudioHelm.Param.kDelaySync, SnareDelaySync);
+		//Hihat
+		Hihat.SetParameterPercent(AudioHelm.Param.kDelayDryWet, HihatDelayMix);
+		Hihat.SetParameterPercent(AudioHelm.Param.kDelayFeedback, HihatDelayFeedback);
+		Hihat.SetParameterPercent(AudioHelm.Param.kDelaySync, HihatDelaySync);
 }
 }
