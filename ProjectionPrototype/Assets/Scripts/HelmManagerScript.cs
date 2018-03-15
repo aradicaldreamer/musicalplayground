@@ -19,66 +19,78 @@ public class HelmManagerScript : MonoBehaviour {
 	public AudioHelm.Sequencer AirDroneSeq;
 	public AudioHelm.Sequencer LeadSeq;
 
-	public int KickNote = 60;
-	public int SnareNote = 50;
-	public int HihatNote = 67;
+	public int Chordi = 1;
+	public int Chordii = 0;
+	public int Chordiv = 0;
+	public int Chordv = 0;
+	public int Chordvi = 0;
+	public int Chordbvii = 0;
+	public int Chordvii = 0;
 
-	public int BassNote = 48;
+	//Is the midi note 0 to 127 = to music note
+	private int C2= 48;
+	private int D2 = 50;
+	private int F2 = 53;
+	private int G2= 55;
+	private int A2= 57;
 
-	public int DroneNote1= 48; //Is the midi note 0 to 127
-	public int DroneNote2= 55;
-	public int DroneNote3= 57;
-	public int DroneNote4= 62;
+	private int C3 = 60;
+	private int D3= 62;
+	private int E3 = 64;
+	private int G3 = 67;
 
-	public int ArpNote1= 76;
-	public int ArpNote2= 81;
-	public int ArpNote3= 83;
-	public int ArpNote4= 86;
+	private int C4 = 72;
+	private int E4= 76;
+	private int F4= 77;
+	private int G4= 79;
+	private int A4= 81;
+	private int B4= 83;
 
-	public int AirDroneNote1 = 95;
-	public int AirDroneNote2 = 98;
-	public int AirDroneNote3 = 100;
+	private int D5= 86;
+	private int E5 = 88;
+	private int F5 = 89;
+	private int G5 = 91;
+	private int A5= 93;
+	private int B5= 95;
+	private int C5= 96;
 
-	public int LeadNote1 = 93;
-	public int LeadNote2 = 98;
-	public int LeadNote3 = 91;
-	public int LeadNote4 = 88;
+	private int D6= 98;
+	private int E6 = 100;
+	private int F6= 101;
 
-	public int CymbalNote = 72; 
-
-	//Drone	
+	//Drone	Parameters
 	public float DroneY = 0.5f; // variable example to change a synth parameter
 	public float DroneX = 0.2f; // variable example to change a synth parameter
 	public float DronefilterBlend = 1.0f; // variable example to change a synth parameter
-	//AirDrone	
+	//AirDrone Parameters	
 	public float AirDroneX = 1.0f; // variable example to change a synth parameter
 	public float AirDroneY = 0.0f; // variable example to change a synth parameter
 	public float AirDronefilterBlend = 1.0f;
 	public float AirDroneDelayTempo = 0.5f;
 	public float AirDroneNoise = 0.0f;
-	//Arp
+	//Arp Parameters
 	public float ArpStutter = 0.0f; // variable example to change a synth parameter
 	public float ArpStutterResample = 1.0f; // variable example to change a synth parameter
 	public float ArpFeedback = 0.5f;
-	//Bass
+	//Bass Parameters
 	public float BassSubShuffle = 0.0f;
 	public float BassOSC2tune = 0;
 	public float BassFeedbackTune = 0.5f;
 	public float BassFeedbackAmount = 0.5f;
-	//Lead
+	//Lead Parameters
 	public float LeadDelayMix = 0.0f;
 	public float LeadDelayFeedback = 0.5f;
 	public float LeadDelaySync = 0.5f;
 	public float LeadSustain = 0.2f;
-	//Snare
+	//Snare Parameters
 	public float SnareDelayMix = 0.0f;
 	public float SnareDelayFeedback = 0.5f;
 	public float SnareDelaySync = 0.4f;
-	//Hihat
+	//Hihat Parameters
 	public float HihatDelayMix = 0.0f;
 	public float HihatDelayFeedback = 0.5f;
 	public float HihatDelaySync = 0.4f;
-
+	//Timer to invoke sequencers/synths on startup
 	public float time = 1.5f;
 
 	// Use this for initialization
@@ -94,17 +106,39 @@ public class HelmManagerScript : MonoBehaviour {
 	}
 	void DroneEnable()
 	{
-		Drone.NoteOn (DroneNote1,1.0f);
-		Drone.NoteOn (DroneNote2,1.0f);
-		Drone.NoteOn (DroneNote3,1.0f); 
-		Drone.NoteOn (DroneNote4,1.0f);
+		if (Chordi == 1) {
+			//Drone Chordi
+			Drone.AllNotesOff();
+			Drone.NoteOn (C2, 1.0f);
+			Drone.NoteOn (G2, 1.0f);
+			Drone.NoteOn (A2, 1.0f); 
+			Drone.NoteOn (D3, 1.0f);
+		}
+		if (Chordii == 1) {
+			//Drone Chordii
+			Drone.AllNotesOff();
+			Drone.NoteOn (D2, 1.0f);
+			Drone.NoteOn (F2, 1.0f);
+			Drone.NoteOn (C3, 1.0f); 
+			Drone.NoteOn (E3, 1.0f);
+		}
 	}
 	void AirDroneEnable()
 	{
+		if (Chordi == 1) {
+		//AirDrone Chordi
 		AirDroneSeq.Clear ();
-		AirDroneSeq.AddNote (AirDroneNote1, 0, 17);
-		AirDroneSeq.AddNote (AirDroneNote2, 0, 17);
-		AirDroneSeq.AddNote (AirDroneNote3, 0, 17);
+		AirDroneSeq.AddNote (B5, 0, 17);
+		AirDroneSeq.AddNote (D6, 0, 17);
+		AirDroneSeq.AddNote (E6, 0, 17);
+		}
+		if (Chordii == 1) {
+			//AirDrone Chordii
+			AirDroneSeq.Clear ();
+			AirDroneSeq.AddNote (C5, 0, 17);
+			AirDroneSeq.AddNote (E6, 0, 17);
+			AirDroneSeq.AddNote (F6, 0, 17);
+		}
 	}
 	void DrumsEnable()
 	{
@@ -112,46 +146,78 @@ public class HelmManagerScript : MonoBehaviour {
 		SnareSeq.Clear ();
 		HihatSeq.Clear ();
 
-		KickSeq.AddNote (KickNote,0,1);
-		KickSeq.AddNote (KickNote,8,9);
+		KickSeq.AddNote (C3,0,1);
+		KickSeq.AddNote (C3,8,9);
 
-		SnareSeq.AddNote (SnareNote,4,5);
-		SnareSeq.AddNote (SnareNote,10,11);
-		SnareSeq.AddNote (SnareNote,14,15);
-		SnareSeq.AddNote (SnareNote,15,16,0.5f);
+		SnareSeq.AddNote (D2,4,5);
+		SnareSeq.AddNote (D2,10,11);
+		SnareSeq.AddNote (D2,14,15);
+		SnareSeq.AddNote (D2,15,16,0.5f);
 
-		HihatSeq.AddNote (HihatNote, 1, 2, 0.5f);
-		HihatSeq.AddNote (HihatNote, 2, 3);
-		HihatSeq.AddNote (HihatNote, 6, 7, 0.7f);
-		HihatSeq.AddNote (HihatNote, 8, 9);
-		HihatSeq.AddNote (HihatNote, 12, 13,0.7f);
-		HihatSeq.AddNote (HihatNote, 14, 15);
+		HihatSeq.AddNote (G3, 1, 2, 0.5f);
+		HihatSeq.AddNote (G3, 2, 3);
+		HihatSeq.AddNote (G3, 6, 7, 0.7f);
+		HihatSeq.AddNote (G3, 8, 9);
+		HihatSeq.AddNote (G3, 12, 13,0.7f);
+		HihatSeq.AddNote (G3, 14, 15);
 
 	}
 	void BassEnable()
 	{
-		Bass.NoteOn (BassNote);
-		Bass.NoteOn (BassNote+12);
+		if (Chordi == 1) {
+			//Bass Chordi
+			Bass.AllNotesOff();
+			Bass.NoteOn (C2);
+			Bass.NoteOn (C3);
+		}
+		if (Chordii == 1) {
+			//Bass Chordii
+			Bass.AllNotesOff();
+			Bass.NoteOn (D2);
+			Bass.NoteOn (D3);			
+		}
 	}
 	void ArpEnable()
 	{
-		ArpSeq.Clear ();
-		ArpSeq.AddNote (ArpNote1, 0, 17);
-		ArpSeq.AddNote (ArpNote2, 0, 17);
-		ArpSeq.AddNote (ArpNote3, 0, 17);
-		ArpSeq.AddNote (ArpNote4, 0, 17);
+		if (Chordi == 1) {
+			//Arp Chordi
+			ArpSeq.Clear ();
+			ArpSeq.AddNote (E4, 0, 17);
+			ArpSeq.AddNote (A4, 0, 17);
+			ArpSeq.AddNote (B4, 0, 17);
+			ArpSeq.AddNote (D5, 0, 17);
+		}
+		if (Chordii == 1) {
+			//Arp Chordii
+			ArpSeq.Clear ();
+			ArpSeq.AddNote (F4, 0, 17);
+			ArpSeq.AddNote (G4, 0, 17);
+			ArpSeq.AddNote (C4, 0, 17);
+			ArpSeq.AddNote (E5, 0, 17);
+		}
 	}
 	void LeadEnable()
 	{
+		if (Chordi == 1) {
+		//Lead Chordi
 		LeadSeq.Clear ();
-		LeadSeq.AddNote (LeadNote1, 0, 1);
-		LeadSeq.AddNote (LeadNote2, 5, 6);
-		LeadSeq.AddNote (LeadNote3, 8, 9);
-		LeadSeq.AddNote (LeadNote4, 13, 14);
+		LeadSeq.AddNote (A5, 0, 1);
+		LeadSeq.AddNote (D6, 5, 6);
+		LeadSeq.AddNote (G5, 8, 9);
+		LeadSeq.AddNote (E5, 13, 14);
+		}
+		if (Chordii == 1) {
+			//Lead Chordii
+			LeadSeq.Clear ();
+			LeadSeq.AddNote (G5, 0, 1);
+			LeadSeq.AddNote (E6, 5, 6);
+			LeadSeq.AddNote (A5, 8, 9);
+			LeadSeq.AddNote (F5, 13, 14);
+		}
 	}
 	void CymbalHitEnable()
 	{
-		CymbalHit.NoteOn (CymbalNote, 1.0f, 2.0f);
+		CymbalHit.NoteOn (C4, 1.0f, 2.0f);
 	}
 	// Update is called once per frame
 	void Update () {
