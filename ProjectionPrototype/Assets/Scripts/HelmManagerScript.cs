@@ -42,12 +42,24 @@ public class HelmManagerScript : MonoBehaviour {
 	public int LeadNote4 = 88;
 
 	//Drone	
-	public float formantY = 0.0f; // variable example to change a synth parameter
-	public float formantX = 0.0f; // variable example to change a synth parameter
-	public float filterBlend = 0.0f; // variable example to change a synth parameter
+	public float DroneY = 0.5f; // variable example to change a synth parameter
+	public float DroneX = 0.2f; // variable example to change a synth parameter
+	public float DronefilterBlend = 1.0f; // variable example to change a synth parameter
+	//AirDrone	
+	public float AirDroneX = 1.0f; // variable example to change a synth parameter
+	public float AirDroneY = 0.0f; // variable example to change a synth parameter
+	public float AirDronefilterBlend = 1.0f;
+	public float AirDroneDelayTempo = 0.5f;
+	public float AirDroneNoise = 0.0f;
 	//Arp
-	public float stutterTempo = 0.0f; // variable example to change a synth parameter
-	public float stutterResampleTempo = 1.0f; // variable example to change a synth parameter
+	public float ArpStutter = 0.0f; // variable example to change a synth parameter
+	public float ArpStutterResample = 1.0f; // variable example to change a synth parameter
+	public float ArpFeedback = 0.5f;
+	//Bass
+	public float BassSubShuffle = 0.0f;
+	public float BassOSC2tune = 0;
+	public float BassFeedbackTune = 0.5f;
+	public float BassFeedbackAmount = 0.5f;
 
 	public float time = 1.5f;
 
@@ -121,11 +133,26 @@ public class HelmManagerScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//Drone
-		Drone.SetParameterPercent(AudioHelm.Param.kFormantY, formantY);
-		Drone.SetParameterPercent(AudioHelm.Param.kFormantX, formantX);
-		Drone.SetParameterPercent(AudioHelm.Param.kFilterBlend, filterBlend);
+		Drone.SetParameterPercent(AudioHelm.Param.kFormantY, DroneY);
+		Drone.SetParameterPercent(AudioHelm.Param.kFormantX, DroneX);
+		Drone.SetParameterPercent(AudioHelm.Param.kFilterBlend, DronefilterBlend);
 		//Arp
-		Arp.SetParameterValue(AudioHelm.Param.kStutterTempo, stutterTempo);
-		Arp.SetParameterValue(AudioHelm.Param.kStutterResampleTempo, stutterResampleTempo);
-	}
+		Arp.SetParameterPercent(AudioHelm.Param.kStutterTempo, ArpStutter);
+		Arp.SetParameterPercent(AudioHelm.Param.kStutterResampleTempo, ArpStutterResample);
+		Arp.SetParameterPercent (AudioHelm.Param.kOscFeedbackAmount, ArpFeedback);
+		//AirDrone
+		AirDrone.SetParameterPercent(AudioHelm.Param.kFormantX, AirDroneX);
+		AirDrone.SetParameterPercent(AudioHelm.Param.kFormantY, AirDroneY);
+		AirDrone.SetParameterPercent(AudioHelm.Param.kFilterBlend, AirDronefilterBlend);
+		AirDrone.SetParameterPercent (AudioHelm.Param.kDelayTempo, AirDroneDelayTempo);
+		AirDrone.SetParameterPercent (AudioHelm.Param.kDelaySync, AirDroneDelayTempo-0.2f);
+		AirDrone.SetParameterPercent (AudioHelm.Param.kNoiseVolume, AirDroneNoise);
+		//Bass
+		Bass.SetParameterPercent(AudioHelm.Param.kSubShuffle, BassSubShuffle);
+		Bass.SetParameterValue(AudioHelm.Param.kOsc2Tune, BassOSC2tune);
+		Bass.SetParameterPercent(AudioHelm.Param.kOscFeedbackAmount, BassFeedbackTune);
+		Bass.SetParameterPercent(AudioHelm.Param.kOscFeedbackTune, BassFeedbackAmount);
+
+
+}
 }

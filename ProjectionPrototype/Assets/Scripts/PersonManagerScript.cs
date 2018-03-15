@@ -148,8 +148,8 @@ public class PersonManagerScript : MonoBehaviour, OpenTSPSListener  {
 		Bounds meshBounds = boundingPlane.GetComponent<MeshFilter>().sharedMesh.bounds;
 		HelmManagerScript hms = helmManager.GetComponent<HelmManagerScript>();
 		Debug.Log(meshBounds.size.x+" "+person.centroidX);
-		hms.formantX = 1.0f / meshBounds.size.x * person.centroidX;
-		hms.formantY = 1.0f / meshBounds.size.y * person.centroidY;
+		hms.DroneX = 1.0f / meshBounds.size.x * person.centroidX;
+		hms.DroneY = 1.0f / meshBounds.size.y * person.centroidY;
 	}
 
 	private void updateBass(OpenTSPSPerson person)
