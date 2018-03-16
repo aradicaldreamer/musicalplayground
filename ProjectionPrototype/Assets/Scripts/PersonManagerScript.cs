@@ -54,10 +54,20 @@ public class PersonManagerScript : MonoBehaviour, OpenTSPSListener  {
 		// Create an array of instrument objects
 		Instrument drone = new Instrument();
 		drone.name = "drone";
+		drone.defaultPosX = 0.0f;
+		drone.defaultPosY = 0.5f;
+		drone.defaultVelX = 0.0f;
+		drone.defaultVelY = 0.5f;
 		Instrument bass = new Instrument();
 		bass.name = "bass";
+		bass.defaultVelX = 0.0f;
+		bass.defaultVelY = 0.0f;
+		bass.defaultPosX = 0.5f;
+		bass.defaultPosY = 0.5f;
 		Instrument arp = new Instrument();
 		arp.name = "arp";
+		arp.defaultX = 0.0f;
+		arp.defaultY = 0.5f;
 		instruments = new Instrument[3] { drone, bass, arp };
 		receiver = new OpenTSPSReceiver( port );
 		receiver.addPersonListener( this );
@@ -69,8 +79,40 @@ public class PersonManagerScript : MonoBehaviour, OpenTSPSListener  {
 	void Update () {
 		//call this to receiver messages
 		receiver.update();
+		updateInstruments();
 	}
 	
+	void updateInstruments()
+	{
+		for (int i = 0; i < instruments.Length; i++)
+		{
+			Instrument instrument = instruments[i];
+			if (instrument.personAttached == -1) {
+				instrument.currPosX += (instrument.defaultPosX - instrument.currPosX) / 6; 
+				instrument.currPosY += (instrument.defaultPosY - instrument.currPosY) / 6;
+				instrument.currVelX += (instrument.defaultVelX - instrument.currVelX) / 6; 
+				instrument.currVelY += (instrument.defaultVelY - instrument.currVelY) / 6;
+			} else {
+				instrument.currPosX += (instrument.newPosX - instrument.currPosX) / 3; 
+				instrument.currPosY += (instrument.newPosY - instrument.currPosY) / 3;
+				instrument.currVelX += (instrument.newVelX - instrument.currVelX) / 3; 
+				instrument.currVelY += (instrument.newVelY - instrument.currVelY) / 3;
+			}
+
+			switch (instrument.name)
+			{
+				case "drone" :
+					updateDrone(instrument.currPosX, instrument.currPosY, instrument.currVelX, instrument.currVelY);
+					break;
+				case "bass" :
+					updateBass(instrument.currPosX, instrument.currPosY, instrument.currVelX, instrument.currVelY);
+					break;
+				case "arp" :
+					updateArp(instrument.currPosX, instrument.currPosY, instrument.currVelX, instrument.currVelY);
+					break;
+			}
+		}
+	}
 	
 	void OnGUI() {
 		if( receiver.isConnected() ) {
@@ -129,41 +171,41 @@ public class PersonManagerScript : MonoBehaviour, OpenTSPSListener  {
 		if(peopleCubes.ContainsKey(person.id)){
 			Person personMoved = peopleCubes[person.id];
 			if (personMoved.instrument != null) {
-				Debug.Log(personMoved.instrument.name);
-				switch(personMoved.instrument.name) {
-					case "drone" :
-						updateDrone(person);
-						break;
-					case "bass" :
-						updateBass(person);
-						break;
-					case "arp" :
-						updateArp(person);
-						break;
-				}
+				personMoved.instrument.newPosX = person.centroidX;
+				personMoved.instrument.newPosY = person.centroidY;
+				personMoved.instrument.newVelX = person.velocityX;
+				personMoved.instrument.newVelY = person.velocityY;
 			}
 		}
 	}
 
-	private void updateDrone(OpenTSPSPerson person)
+	private void updateDrone(float npx, float npy, float nvx, float nvy)
 	{
 		HelmManagerScript hms = helmManager.GetComponent<HelmManagerScript>();
-		hms.DroneX = person.centroidX;
-		hms.DroneY = person.centroidY;
+		hms.DroneX = mapValue(npx, 0.0f, 1.0f);
+		hms.DroneY = mapValue(npy, 0.0f, 1.0f);
 	}
 
-	private void updateBass(OpenTSPSPerson person)
+	private void updateBass(float npx, float npy, float nvx, float nvy)
 	{
 		HelmManagerScript hms = helmManager.GetComponent<HelmManagerScript>();
-		hms.BassSubShuffle = -10.0f + (person.centroidX * 20.0f);
-		hms.BassOSC2tune = -10.0f + (person.centroidY * 20.0f);
+		hms.BassSubShuffle = mapValue(nvx, 0.0f, 1.0f);
+		hms.BassOSC2tune = mapValue(nvy, -1.0f, 1.0f);
+		hms.BassFeedbackTune = mapValue(npx, -1.0f, 1.0f);
+		hms.BassFeedbackAmount = mapValue(npy, 0, 1.0f);
 	}
 
-	private void updateArp(OpenTSPSPerson person)
+	private void updateArp(float npx, float npy, float nvx, float nvy)
 	{
 		HelmManagerScript hms = helmManager.GetComponent<HelmManagerScript>();
-		hms.ArpFeedback = -5.0f + (person.centroidX * 10.0f);
-		hms.ArpStutter = -10.0f + (person.centroidY * 30.0f);
+		hms.ArpFeedback = mapValue(npx, 0.0f, 1.0f);
+		hms.ArpStutter = mapValue(npy, 0.0f, 1.0f);
+		hms.ArpStutterResample = mapValue(npy, 0.0f, 1.0f);
+	}
+
+	private float mapValue(float value, float vmin, float vmax)
+	{
+		return vmin + ((vmax - vmin) * value);
 	}
 
 	public void personWillLeave(OpenTSPSPerson person){
@@ -190,8 +232,19 @@ public class PersonManagerScript : MonoBehaviour, OpenTSPSListener  {
 public class Instrument
 {
 	public string name = "";
-
 	public int personAttached = -1;
+	public float defaultPosX = 0.0f;
+	public float defaultPosY = 0.0f;
+	public float newPosX = 0.0f;
+	public float newPosY = 0.0f;
+	public float currPosX = 0.0f;
+	public float currPosY = 0.0f;
+	public float defaultVelX = 0.0f;
+	public float defaultVelY = 0.0f;
+	public float newVelX = 0.0f;
+	public float newVelY = 0.0f;
+	public float currVelX = 0.0f;
+	public float currVelY = 0.0f;
 }
 
 public class Person
