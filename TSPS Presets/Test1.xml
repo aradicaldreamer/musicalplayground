@@ -47,7 +47,7 @@
     <val_0>1.000000000</val_0>
 </BLOB_TYPE>
 <USE_HIGHPASS>
-    <val_0>1.000000000</val_0>
+    <val_0>0.000000000</val_0>
 </USE_HIGHPASS>
 <HIGHPASS_BLUR>
     <val_0>3.944444418</val_0>
@@ -62,16 +62,16 @@
     <val_0>1.000000000</val_0>
 </USE_SMOOTHING>
 <SMOOTH_AMOUNT>
-    <val_0>5.555555344</val_0>
+    <val_0>7.666666985</val_0>
 </SMOOTH_AMOUNT>
 <MIN_BLOB>
     <val_0>1.000000000</val_0>
 </MIN_BLOB>
 <MAX_BLOB>
-    <val_0>100.000000000</val_0>
+    <val_0>30.070001602</val_0>
 </MAX_BLOB>
 <FIND_HOLES>
-    <val_0>0.000000000</val_0>
+    <val_0>1.000000000</val_0>
 </FIND_HOLES>
 <SENSE_HAAR>
     <val_0>0.000000000</val_0>

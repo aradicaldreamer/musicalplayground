@@ -68,10 +68,10 @@
     <val_0>1.000000000</val_0>
 </MIN_BLOB>
 <MAX_BLOB>
-    <val_0>100.000000000</val_0>
+    <val_0>30.070001602</val_0>
 </MAX_BLOB>
 <FIND_HOLES>
-    <val_0>0.000000000</val_0>
+    <val_0>1.000000000</val_0>
 </FIND_HOLES>
 <SENSE_HAAR>
     <val_0>0.000000000</val_0>
