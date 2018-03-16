@@ -51,13 +51,14 @@ public class PersonManagerScript : MonoBehaviour, OpenTSPSListener  {
 	private Instrument[] instruments;
 
 	void Start() {
+		// Create an array of instrument objects
 		Instrument drone = new Instrument();
 		drone.name = "drone";
 		Instrument bass = new Instrument();
 		bass.name = "bass";
 		Instrument arp = new Instrument();
 		arp.name = "arp";
-		instruments = new Instrument[1] { drone };//, bass, arp };
+		instruments = new Instrument[3] { drone, bass, arp };
 		receiver = new OpenTSPSReceiver( port );
 		receiver.addPersonListener( this );
 		//Security.PrefetchSocketPolicy("localhost",8843);
@@ -129,15 +130,16 @@ public class PersonManagerScript : MonoBehaviour, OpenTSPSListener  {
 			Person personMoved = peopleCubes[person.id];
 			if (personMoved.instrument != null) {
 				Debug.Log(personMoved.instrument.name);
-				if (personMoved.instrument.name == "drone")
-				{
-					updateDrone(person);
-				} else if (personMoved.instrument.name == "bass")
-				{
-					updateDrone(person);
-				} else if (personMoved.instrument.name == "arp")
-				{
-					updateDrone(person);
+				switch(personMoved.instrument.name) {
+					case "drone" :
+						updateDrone(person);
+						break;
+					case "bass" :
+						updateBass(person);
+						break;
+					case "arp" :
+						updateArp(person);
+						break;
 				}
 			}
 		}
@@ -145,30 +147,33 @@ public class PersonManagerScript : MonoBehaviour, OpenTSPSListener  {
 
 	private void updateDrone(OpenTSPSPerson person)
 	{
-		Bounds meshBounds = boundingPlane.GetComponent<MeshFilter>().sharedMesh.bounds;
 		HelmManagerScript hms = helmManager.GetComponent<HelmManagerScript>();
-		Debug.Log(meshBounds.size.x+" "+person.centroidX);
-		hms.DroneX = 1.0f / meshBounds.size.x * person.centroidX;
-		hms.DroneY = 1.0f / meshBounds.size.y * person.centroidY;
+		hms.DroneX = person.centroidX;
+		hms.DroneY = person.centroidY;
 	}
 
 	private void updateBass(OpenTSPSPerson person)
 	{
-		//HelmManagerScript hms = helmManager.GetComponent<HelmManagerScript>();
-
-		//hms.formantX = person.centroidX;
-		//hms.formantY = person.centroidY;
+		HelmManagerScript hms = helmManager.GetComponent<HelmManagerScript>();
+		hms.BassSubShuffle = -10.0f + (person.centroidX * 20.0f);
+		hms.BassOSC2tune = -10.0f + (person.centroidY * 20.0f);
 	}
 
 	private void updateArp(OpenTSPSPerson person)
 	{
-		
+		HelmManagerScript hms = helmManager.GetComponent<HelmManagerScript>();
+		hms.ArpFeedback = -5.0f + (person.centroidX * 10.0f);
+		hms.ArpStutter = -10.0f + (person.centroidY * 30.0f);
 	}
 
 	public void personWillLeave(OpenTSPSPerson person){
 		Debug.Log("Person leaving with ID " + person.id);
 		if(peopleCubes.ContainsKey(person.id)){
 			GameObject cubeToRemove = peopleCubes[person.id].gmo;
+			Instrument instrument = peopleCubes[person.id].instrument;
+			if (instrument != null) instrument.personAttached = -1;
+			peopleCubes[person.id].instrument = null;
+
 			peopleCubes.Remove(person.id);
 			//delete it from the scene	
 			Destroy(cubeToRemove);
