@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HelmManagerScript : MonoBehaviour {
+	[Header("Synth Section")]
 	public AudioHelm.HelmController Drone; //ref to helm controller to play synth
 	public AudioHelm.HelmController Bass; //ref to helm controller to play synth
 	public AudioHelm.HelmController Arp;
@@ -11,14 +12,14 @@ public class HelmManagerScript : MonoBehaviour {
 	public AudioHelm.HelmController Snare;
 	public AudioHelm.HelmController Hihat;
 	public AudioHelm.HelmController CymbalHit;
-
+	[Header("Sequencer Section")]
 	public AudioHelm.Sequencer KickSeq;
 	public AudioHelm.Sequencer SnareSeq;
 	public AudioHelm.Sequencer HihatSeq;
 	public AudioHelm.Sequencer ArpSeq;
 	public AudioHelm.Sequencer AirDroneSeq;
 	public AudioHelm.Sequencer LeadSeq;
-
+	[Header("Chord Picker")]
 	public int Chordi = 1;
 	public int Chordii = 0;
 	public int Chordiv = 0;
@@ -26,6 +27,52 @@ public class HelmManagerScript : MonoBehaviour {
 	public int Chordvi = 0;
 	public int Chordbvii = 0;
 	public int Chordvii = 0;
+	[Header("Drone Parameters")]
+	//Drone	Parameters
+	public float DroneX = 0.0f; // posX
+	public float DroneY = 0.5f; // posY
+	public float DroneFeedback = 0.0f; // velX
+	public float DroneMod = 0.0f; // velY
+	public float DronefilterBlend = 1.0f; //collision
+	[Header("AirDrone Parameters")]
+	//AirDrone Parameters	
+	public float AirDroneX = 1.0f; // variable example to change a synth parameter
+	public float AirDroneY = 0.0f; // variable example to change a synth parameter
+	public float AirDronefilterBlend = 1.0f;
+	public float AirDroneDelayTempo = 0.5f;
+	public float AirDroneNoise = 0.0f;
+	[Header("Arp Parameters")]
+	//Arp Parameters
+	public float ArpStutter = 0.0f; // posX
+	public float ArpStutterResample = 1.0f; // posY
+	public float ArpFeedback = 0.5f; // velX
+	public float ArpDelayFeedback = 0.5f; //velY
+	public float ArpSustain = 0.0f; //collision 0-1
+	[Header("Bass Parameters")]
+	//Bass Parameters
+	public float BassFeedbackTune = 0.0f; //posX
+	public float BassFeedbackAmount = 0.0f; //posY
+	public float BassSubShuffle = 0.0f; //velX
+	public float BassOSC2tune = 0.0f; //velY
+	public float BassReso = 0.0f; //collision 0-1
+	[Header("Lead Parameters")]
+	//Lead Parameters
+	public float LeadDelayMix = 0.0f;
+	public float LeadDelayFeedback = 0.5f;
+	public float LeadDelaySync = 0.5f;
+	public float LeadSustain = 0.2f;
+	[Header("Drum Parameters")]
+	//Snare Parameters
+	public float SnareDelayMix = 0.0f;
+	public float SnareDelayFeedback = 0.5f;
+	public float SnareDelaySync = 0.4f;
+	//Hihat Parameters
+	public float HihatDelayMix = 0.0f;
+	public float HihatDelayFeedback = 0.5f;
+	public float HihatDelaySync = 0.4f;
+	[Header("Startup invoke timer")]
+	//Timer to invoke sequencers/synths on startup
+	public float time = 1.5f;
 
 	//Is the midi note 0 to 127 = to music note
 	private int C2= 48;
@@ -72,42 +119,6 @@ public class HelmManagerScript : MonoBehaviour {
 	private int A6= 105;
 	private int B6= 107;
 	private int C6= 108;
-
-	//Drone	Parameters
-	public float DroneY = 0.5f; // variable example to change a synth parameter
-	public float DroneX = 0.2f; // variable example to change a synth parameter
-	public float DronefilterBlend = 1.0f; // variable example to change a synth parameter
-	//AirDrone Parameters	
-	public float AirDroneX = 1.0f; // variable example to change a synth parameter
-	public float AirDroneY = 0.0f; // variable example to change a synth parameter
-	public float AirDronefilterBlend = 1.0f;
-	public float AirDroneDelayTempo = 0.5f;
-	public float AirDroneNoise = 0.0f;
-	//Arp Parameters
-	public float ArpStutter = 0.0f; // variable example to change a synth parameter
-	public float ArpStutterResample = 1.0f; // variable example to change a synth parameter
-	public float ArpFeedback = 0.5f;
-	//Bass Parameters
-	public float BassSubShuffle = 0.0f;
-	public float BassOSC2tune = 0;
-	public float BassFeedbackTune = 0.5f;
-	public float BassFeedbackAmount = 0.5f;
-	//Lead Parameters
-	public float LeadDelayMix = 0.0f;
-	public float LeadDelayFeedback = 0.5f;
-	public float LeadDelaySync = 0.5f;
-	public float LeadSustain = 0.2f;
-	//Snare Parameters
-	public float SnareDelayMix = 0.0f;
-	public float SnareDelayFeedback = 0.5f;
-	public float SnareDelaySync = 0.4f;
-	//Hihat Parameters
-	public float HihatDelayMix = 0.0f;
-	public float HihatDelayFeedback = 0.5f;
-	public float HihatDelaySync = 0.4f;
-	//Timer to invoke sequencers/synths on startup
-	public float time = 1.5f;
-
 	// Use this for initialization
 	void Start () {
 		//string[] notes = { "C-2", "Db-2", "D-2", "Eb-2", "E-2", "F-2", "Gb-2", "G-2", "Ab-2","A-2","Bb-2","B-2","C-1", "Db-1", "D-1", "Eb-1", "E-1", "F-1", "Gb-1", "G-1", "Ab-1","A-1","Bb-1","B-1","C0", "Db0", "D0", "Eb0", "E0", "F0", "Gb0", "G0", "Ab0","A0","Bb0","B0","C1", "Db1", "D1", "Eb1", "E1", "F1", "Gb1", "G1", "Ab1","A1","Bb1","B1","C2", "Db2", "D2", "Eb2", "E2", "F2", "Gb2", "G2", "Ab2","A2","Bb2","B2","C3", "Db3", "D3", "Eb3", "E3", "F3", "Gb3", "G3", "Ab3","A3","Bb3","B3","C4", "Db4", "D4", "Eb4", "E4", "F4", "Gb4", "G4", "Ab4","A4","Bb4","B4","C5", "Db5", "D5", "Eb5", "E5", "F5", "Gb5", "G5", "Ab5","A5","Bb5","B5","C6", "Db6", "D6", "Eb6", "E6", "F6", "Gb6", "G6", "Ab6","A6","Bb6","B6"};
@@ -423,13 +434,16 @@ public class HelmManagerScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//Drone
-		Drone.SetParameterPercent(AudioHelm.Param.kFormantY, DroneY);
-		Drone.SetParameterPercent(AudioHelm.Param.kFormantX, DroneX);
-		Drone.SetParameterPercent(AudioHelm.Param.kFilterBlend, DronefilterBlend);
+		Drone.SetParameterPercent(AudioHelm.Param.kFormantX, DroneX); //posX
+		Drone.SetParameterPercent(AudioHelm.Param.kFormantY, DroneY); //posY
+		Drone.SetParameterValue(AudioHelm.Param.kDelayFeedback, DroneFeedback); //velX
+		Drone.SetParameterPercent(AudioHelm.Param.kCrossMod, DroneMod); //velY
+		Drone.SetParameterPercent(AudioHelm.Param.kFilterBlend, DronefilterBlend); //collision
 		//Arp
-		Arp.SetParameterPercent(AudioHelm.Param.kStutterTempo, ArpStutter);
-		Arp.SetParameterPercent(AudioHelm.Param.kStutterResampleTempo, ArpStutterResample);
-		Arp.SetParameterPercent (AudioHelm.Param.kOscFeedbackAmount, ArpFeedback);
+		Arp.SetParameterValue(AudioHelm.Param.kStutterTempo, ArpStutter); // posX
+		Arp.SetParameterValue(AudioHelm.Param.kStutterResampleTempo, ArpStutterResample); // posY
+		Arp.SetParameterPercent (AudioHelm.Param.kOscFeedbackAmount, ArpFeedback); //velX
+		Arp.SetParameterPercent (AudioHelm.Param.kAmplitudeSustain, ArpSustain); // collision 0-1
 		//AirDrone
 		AirDrone.SetParameterPercent(AudioHelm.Param.kFormantX, AirDroneX);
 		AirDrone.SetParameterPercent(AudioHelm.Param.kFormantY, AirDroneY);
@@ -438,10 +452,11 @@ public class HelmManagerScript : MonoBehaviour {
 		AirDrone.SetParameterPercent (AudioHelm.Param.kDelaySync, AirDroneDelayTempo-0.2f);
 		AirDrone.SetParameterPercent (AudioHelm.Param.kNoiseVolume, AirDroneNoise);
 		//Bass
-		Bass.SetParameterPercent(AudioHelm.Param.kSubShuffle, BassSubShuffle);
-		Bass.SetParameterValue(AudioHelm.Param.kOsc2Tune, BassOSC2tune);
-		Bass.SetParameterPercent(AudioHelm.Param.kOscFeedbackAmount, BassFeedbackTune);
-		Bass.SetParameterPercent(AudioHelm.Param.kOscFeedbackTune, BassFeedbackAmount);
+		Bass.SetParameterValue(AudioHelm.Param.kOscFeedbackTune,BassFeedbackTune); //posX
+		Bass.SetParameterValue(AudioHelm.Param.kOscFeedbackAmount, BassFeedbackAmount); //posY
+		Bass.SetParameterPercent(AudioHelm.Param.kSubShuffle, BassSubShuffle); //velX
+		Bass.SetParameterValue(AudioHelm.Param.kOsc2Tune, BassOSC2tune); //velY
+		Bass.SetParameterPercent(AudioHelm.Param.kResonance, BassReso); //collision 0-1
 		//Lead
 		Lead.SetParameterPercent(AudioHelm.Param.kDelayDryWet, LeadDelayMix);
 		Lead.SetParameterPercent(AudioHelm.Param.kDelayFeedback, LeadDelayFeedback);

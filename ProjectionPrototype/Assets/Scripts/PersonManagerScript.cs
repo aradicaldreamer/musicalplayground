@@ -57,17 +57,22 @@ public class PersonManagerScript : MonoBehaviour, OpenTSPSListener  {
 		drone.defaultPosX = 0.0f;
 		drone.defaultPosY = 0.5f;
 		drone.defaultVelX = 0.0f;
-		drone.defaultVelY = 0.5f;
+		drone.defaultVelY = 0.0f;
+		//drone.defaultCol = 1.0f; collision 1 - 0
 		Instrument bass = new Instrument();
 		bass.name = "bass";
+		bass.defaultPosX = 0.0f;
+		bass.defaultPosY = 0.0f;
 		bass.defaultVelX = 0.0f;
 		bass.defaultVelY = 0.0f;
-		bass.defaultPosX = 0.5f;
-		bass.defaultPosY = 0.5f;
+		//bass.defaultCol = 0.0f; //collision 0 -1
 		Instrument arp = new Instrument();
 		arp.name = "arp";
-		arp.defaultX = 0.0f;
-		arp.defaultY = 0.5f;
+		arp.defaultPosX = 10.0f;
+		arp.defaultPosY = 0.0f;
+		arp.defaultVelX = 0.5f;
+		arp.defaultVelY = 0.5f;
+		//arp.defaultCol = 0.0f; //collision 0 - 1
 		instruments = new Instrument[3] { drone, bass, arp };
 		receiver = new OpenTSPSReceiver( port );
 		receiver.addPersonListener( this );
@@ -184,23 +189,29 @@ public class PersonManagerScript : MonoBehaviour, OpenTSPSListener  {
 		HelmManagerScript hms = helmManager.GetComponent<HelmManagerScript>();
 		hms.DroneX = mapValue(npx, 0.0f, 1.0f);
 		hms.DroneY = mapValue(npy, 0.0f, 1.0f);
+		hms.DroneFeedback = mapValue (nvx, -1.0f, 1.0f);
+		hms.DroneMod = mapValue (nvy, 0.0f, 1.0f);
+		//hms.AirDronefilterBlend = mapValue (? , 1.0f, 0.0f); //collision
 	}
 
 	private void updateBass(float npx, float npy, float nvx, float nvy)
 	{
 		HelmManagerScript hms = helmManager.GetComponent<HelmManagerScript>();
+		hms.BassFeedbackTune = mapValue(npx, -1.0f, 1.0f);
+		hms.BassFeedbackAmount = mapValue(npy, 1.0f, -1.0f);
 		hms.BassSubShuffle = mapValue(nvx, 0.0f, 1.0f);
 		hms.BassOSC2tune = mapValue(nvy, -1.0f, 1.0f);
-		hms.BassFeedbackTune = mapValue(npx, -1.0f, 1.0f);
-		hms.BassFeedbackAmount = mapValue(npy, 0, 1.0f);
+		//hms.BassReso = mapValue(?, 0.0f, 1.0f); //collision
 	}
 
 	private void updateArp(float npx, float npy, float nvx, float nvy)
 	{
 		HelmManagerScript hms = helmManager.GetComponent<HelmManagerScript>();
-		hms.ArpFeedback = mapValue(npx, 0.0f, 1.0f);
-		hms.ArpStutter = mapValue(npy, 0.0f, 1.0f);
-		hms.ArpStutterResample = mapValue(npy, 0.0f, 1.0f);
+		hms.ArpStutter = mapValue(npx, 7.0f, 30.0f);
+		hms.ArpStutterResample = mapValue(npy, 7.0f, 30.0f);
+		hms.ArpFeedback = mapValue(nvx, 0.0f, 1.0f);
+		hms.ArpDelayFeedback = mapValue(nvy, 0.5f, 1.0f);
+		//hms.ArpSustain = mapValue(?, 0.0f, 1.0f); //collision
 	}
 
 	private float mapValue(float value, float vmin, float vmax)
