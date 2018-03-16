@@ -52,13 +52,13 @@ public class PersonManagerScript : MonoBehaviour, OpenTSPSListener  {
 
 	void Start() {
 		// Create an array of instrument objects
-		Instrument drone = new Instrument();
-		drone.name = "drone";
-		drone.defaultPosX = 0.0f;
-		drone.defaultPosY = 0.5f;
-		drone.defaultVelX = 0.0f;
-		drone.defaultVelY = 0.0f;
-		//drone.defaultCol = 1.0f; collision 1 - 0
+		Instrument drums = new Instrument();
+		drums.name = "drums";
+		drums.defaultPosX = 0.0f;
+		drums.defaultPosY = 0.0f;
+		drums.defaultVelX = 0.4f;
+		drums.defaultVelY = 0.4f;
+		//drums.defaultCol = 0.0f; //collision 0 -1
 		Instrument bass = new Instrument();
 		bass.name = "bass";
 		bass.defaultPosX = 0.0f;
@@ -66,6 +66,20 @@ public class PersonManagerScript : MonoBehaviour, OpenTSPSListener  {
 		bass.defaultVelX = 0.0f;
 		bass.defaultVelY = 0.0f;
 		//bass.defaultCol = 0.0f; //collision 0 -1
+		Instrument drone = new Instrument();
+		drone.name = "drone";
+		drone.defaultPosX = 0.0f;
+		drone.defaultPosY = 0.5f;
+		drone.defaultVelX = 0.1f;
+		drone.defaultVelY = 0.0f;
+		//drone.defaultCol = 1.0f; collision 1 - 0
+		Instrument airDrone = new Instrument();
+		airDrone.name = "airDrone";
+		airDrone.defaultPosX = 1.0f;
+		airDrone.defaultPosY = 0.0f;
+		airDrone.defaultVelX = 0.5f;
+		airDrone.defaultVelY = 1.0f;
+		//airDrone.defaultCol = 0.0f; //collision 0 - 1
 		Instrument arp = new Instrument();
 		arp.name = "arp";
 		arp.defaultPosX = 10.0f;
@@ -73,7 +87,15 @@ public class PersonManagerScript : MonoBehaviour, OpenTSPSListener  {
 		arp.defaultVelX = 0.5f;
 		arp.defaultVelY = 0.5f;
 		//arp.defaultCol = 0.0f; //collision 0 - 1
-		instruments = new Instrument[3] { drone, bass, arp };
+		Instrument lead = new Instrument();
+		lead.name = "lead";
+		lead.defaultPosX = 0.0f;
+		lead.defaultPosY = 0.5f;
+		lead.defaultVelX = 0.5f;
+		lead.defaultVelY = 0.4f;
+		//lead.defaultCol = 0.2f; //collision 0 - 1
+
+		instruments = new Instrument[6] { drums, bass, drone, airDrone, arp, lead };
 		receiver = new OpenTSPSReceiver( port );
 		receiver.addPersonListener( this );
 		//Security.PrefetchSocketPolicy("localhost",8843);
@@ -106,15 +128,25 @@ public class PersonManagerScript : MonoBehaviour, OpenTSPSListener  {
 
 			switch (instrument.name)
 			{
-				case "drone" :
-					updateDrone(instrument.currPosX, instrument.currPosY, instrument.currVelX, instrument.currVelY);
+				case "drums" :
+					updateDrums(instrument.currPosX, instrument.currPosY, instrument.currVelX, instrument.currVelY);
 					break;
 				case "bass" :
 					updateBass(instrument.currPosX, instrument.currPosY, instrument.currVelX, instrument.currVelY);
 					break;
+				case "drone" :
+					updateDrone(instrument.currPosX, instrument.currPosY, instrument.currVelX, instrument.currVelY);
+					break;
+				case "airDrone" :
+					updateAirDrone(instrument.currPosX, instrument.currPosY, instrument.currVelX, instrument.currVelY);
+					break;
 				case "arp" :
 					updateArp(instrument.currPosX, instrument.currPosY, instrument.currVelX, instrument.currVelY);
 					break;
+				case "lead" :
+					updateLead(instrument.currPosX, instrument.currPosY, instrument.currVelX, instrument.currVelY);
+					break;
+
 			}
 		}
 	}
@@ -184,6 +216,28 @@ public class PersonManagerScript : MonoBehaviour, OpenTSPSListener  {
 		}
 	}
 
+	private void updateDrums(float npx, float npy, float nvx, float nvy)
+	{
+		HelmManagerScript hms = helmManager.GetComponent<HelmManagerScript>();
+		hms.SnareDelayMix = mapValue(npx, 0.0f, 1.0f);
+		hms.SnareDelayFeedback = mapValue(npy, -1.0f, 1.0f);
+		hms.SnareDelaySync = mapValue(nvx, 0.0f, 1.0f);
+		hms.HihatDelayMix = mapValue(npx, 0.0f, 1.0f);
+		hms.HihatDelayFeedback = mapValue(npy, -1.0f, 1.0f);
+		hms.HihatDelaySync = mapValue(nvy, 0.0f, 1.0f);
+		//hms.CymbalHitEnable(); //collision
+	}
+
+	private void updateBass(float npx, float npy, float nvx, float nvy)
+	{
+		HelmManagerScript hms = helmManager.GetComponent<HelmManagerScript>();
+		hms.BassFeedbackTune = mapValue(npx, -1.0f, 1.0f);
+		hms.BassFeedbackAmount = mapValue(npy, -1.0f, 1.0f);
+		hms.BassSubShuffle = mapValue(nvx, 0.0f, 1.0f);
+		hms.BassOSC2tune = mapValue(nvy, -1.0f, 1.0f);
+		//hms.BassReso = mapValue(?, 0.0f, 1.0f); //collision
+	}
+
 	private void updateDrone(float npx, float npy, float nvx, float nvy)
 	{
 		HelmManagerScript hms = helmManager.GetComponent<HelmManagerScript>();
@@ -194,14 +248,14 @@ public class PersonManagerScript : MonoBehaviour, OpenTSPSListener  {
 		//hms.AirDronefilterBlend = mapValue (? , 1.0f, 0.0f); //collision
 	}
 
-	private void updateBass(float npx, float npy, float nvx, float nvy)
+	private void updateAirDrone(float npx, float npy, float nvx, float nvy)
 	{
 		HelmManagerScript hms = helmManager.GetComponent<HelmManagerScript>();
-		hms.BassFeedbackTune = mapValue(npx, -1.0f, 1.0f);
-		hms.BassFeedbackAmount = mapValue(npy, 1.0f, -1.0f);
-		hms.BassSubShuffle = mapValue(nvx, 0.0f, 1.0f);
-		hms.BassOSC2tune = mapValue(nvy, -1.0f, 1.0f);
-		//hms.BassReso = mapValue(?, 0.0f, 1.0f); //collision
+		hms.AirDroneX = mapValue(npx, 0.0f, 1.0f);
+		hms.AirDroneY = mapValue(npy, 0.0f, 1.0f);
+		hms.AirDroneDelayTempo = mapValue(nvx, 0.0f, 1.0f);
+		hms.AirDronefilterBlend = mapValue(nvy, 0.0f, 1.0f);
+		//hms.AirDroneNoise = mapValue(?, 0.0f, 1.0f); //collision
 	}
 
 	private void updateArp(float npx, float npy, float nvx, float nvy)
@@ -212,6 +266,16 @@ public class PersonManagerScript : MonoBehaviour, OpenTSPSListener  {
 		hms.ArpFeedback = mapValue(nvx, 0.0f, 1.0f);
 		hms.ArpDelayFeedback = mapValue(nvy, 0.5f, 1.0f);
 		//hms.ArpSustain = mapValue(?, 0.0f, 1.0f); //collision
+	}
+
+	private void updateLead(float npx, float npy, float nvx, float nvy)
+	{
+		HelmManagerScript hms = helmManager.GetComponent<HelmManagerScript>();
+		hms.LeadDelayMix = mapValue(npx, 0.0f, 1.0f);
+		hms.LeadDelayFeedback = mapValue(npy, -1.0f, 1.0f);
+		hms.LeadDelaySync = mapValue(nvx, 0.0f, 1.0f);
+		hms.LeadDelayTempo = mapValue(nvy, 0.0f, 1.0f);
+		//hms.LeadSustain = mapValue(?, 0.2f, 1.0f); //collision
 	}
 
 	private float mapValue(float value, float vmin, float vmax)
