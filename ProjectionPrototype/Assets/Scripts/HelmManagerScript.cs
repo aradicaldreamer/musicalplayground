@@ -29,13 +29,13 @@ public class HelmManagerScript : MonoBehaviour {
 	public int Chordvii = 0;
 	[Header("Drum Parameters")]
 	//Snare Parameters
-	public float SnareDelayMix = 0.0f;
-	public float SnareDelayFeedback = 0.0f;
-	public float SnareDelaySync = 0.4f;
+	public float SnareDelayMix = 0.0f; // posX
+	public float SnareDelayFeedback = 0.0f; //posY
+	public float SnareDelaySync = 0.4f; //velX
 	//Hihat Parameters
-	public float HihatDelayMix = 0.0f;
-	public float HihatDelayFeedback = 0.0f;
-	public float HihatDelaySync = 0.4f;
+	public float HihatDelayMix = 0.0f; //posX combined
+	public float HihatDelayFeedback = 0.0f; //posY combined
+	public float HihatDelaySync = 0.4f; //velY
 	[Header("Bass Parameters")]
 	//Bass Parameters
 	public float BassFeedbackTune = 0.0f; //posX
@@ -54,23 +54,26 @@ public class HelmManagerScript : MonoBehaviour {
 	//AirDrone Parameters	
 	public float AirDroneX = 1.0f; // posX
 	public float AirDroneY = 0.0f; // posY
-	public float AirDroneDelayTempo = 0.5f; //velX
-	public float AirDronefilterBlend = 1.0f; //velY
-	public float AirDroneNoise = 0.0f; //collision
+	public float AirDronefilterBlend = 1.0f; //velX
+	public float AirDroneArpOn = 0.0f; //velY
+	public float AirDroneDelayTempo = 0.5f; //collision
+
 	[Header("Arp Parameters")]
 	//Arp Parameters
-	public float ArpStutter = 0.0f; // posX
-	public float ArpStutterResample = 1.0f; // posY
+	public float ArpStutter = 1.0f; // posX
+	public float ArpSub = 0.0f; // posY
 	public float ArpFeedback = 0.5f; // velX
 	public float ArpDelayFeedback = 0.5f; //velY
 	public float ArpSustain = 0.0f; //collision 0-1
 	[Header("Lead Parameters")]
 	//Lead Parameters
-	public float LeadDelayMix = 0.0f;
-	public float LeadDelayFeedback = 0.5f;
-	public float LeadDelaySync = 0.5f;
-	public float LeadDelayTempo = 0.4f;
-	public float LeadSustain = 0.2f;
+	public float LeadMix = 0.0f; //posX
+	public float LeadSub = 0.0f; //posY
+	public float LeadSustain = 0.2f; // velX 
+	public float LeadAttack = 0.1f; //velY
+	public float LeadDelaySync = 0.5f; // collision 0.5 - 1.0?
+	public float LeadDelayTempo = 0.5f; // collision combined 0.5 - 1.0?
+
 
 	[Header("Startup invoke timer")]
 	//Timer to invoke sequencers/synths on startup
@@ -376,8 +379,8 @@ public class HelmManagerScript : MonoBehaviour {
 		if (Chordi == 1) {
 		//Lead Chordi
 		LeadSeq.Clear ();
-		LeadSeq.AddNote (A5, 0, 1);
-		LeadSeq.AddNote (D6, 5, 6);
+	//	LeadSeq.AddNote (A5, 0, 1);
+		LeadSeq.AddNote (D5, 5, 6);
 		LeadSeq.AddNote (G5, 8, 9);
 		LeadSeq.AddNote (E5, 13, 14);
 		}
@@ -441,16 +444,18 @@ public class HelmManagerScript : MonoBehaviour {
 	//Drums	
 		//Snare
 		Snare.SetParameterPercent(AudioHelm.Param.kDelayDryWet, SnareDelayMix); //posX
-		Snare.SetParameterValue(AudioHelm.Param.kDelayFeedback, SnareDelayFeedback); //posY
+		Snare.SetParameterValue(AudioHelm.Param.kDelayFeedback, SnareDelayFeedback); //posY 
 		Snare.SetParameterPercent(AudioHelm.Param.kDelaySync, SnareDelaySync); //velX
 		//Hihat
-		Hihat.SetParameterPercent(AudioHelm.Param.kDelayDryWet, HihatDelayMix); //posX
-		Hihat.SetParameterValue(AudioHelm.Param.kDelayFeedback, HihatDelayFeedback); //posY
+		Hihat.SetParameterPercent(AudioHelm.Param.kDelayDryWet, HihatDelayMix); //posY combined
+		Hihat.SetParameterValue(AudioHelm.Param.kDelayFeedback, HihatDelayFeedback); //posX combined
 		Hihat.SetParameterPercent(AudioHelm.Param.kDelaySync, HihatDelaySync); //velY
 
 	//Bass
 		Bass.SetParameterValue(AudioHelm.Param.kOscFeedbackTune,BassFeedbackTune); //posX
+		Bass.SetParameterPercent (AudioHelm.Param.kFilterDrive, BassFeedbackTune);//posX combined
 		Bass.SetParameterValue(AudioHelm.Param.kOscFeedbackAmount, BassFeedbackAmount); //posY
+		Bass.SetParameterValue(AudioHelm.Param.kDelayFeedback, BassFeedbackAmount);//posY combined
 		Bass.SetParameterPercent(AudioHelm.Param.kSubShuffle, BassSubShuffle); //velX
 		Bass.SetParameterValue(AudioHelm.Param.kOsc2Tune, BassOSC2tune); //velY
 		Bass.SetParameterPercent(AudioHelm.Param.kResonance, BassReso); //collision 0-1
@@ -465,22 +470,29 @@ public class HelmManagerScript : MonoBehaviour {
 	//AirDrone
 		AirDrone.SetParameterPercent(AudioHelm.Param.kFormantX, AirDroneX); //posX
 		AirDrone.SetParameterPercent(AudioHelm.Param.kFormantY, AirDroneY); //posY
-		AirDrone.SetParameterPercent (AudioHelm.Param.kDelayTempo, AirDroneDelayTempo); //velX
-		AirDrone.SetParameterPercent (AudioHelm.Param.kDelaySync, AirDroneDelayTempo-0.2f); //velx combined
-		AirDrone.SetParameterPercent(AudioHelm.Param.kFilterBlend, AirDronefilterBlend); //velY
-		AirDrone.SetParameterPercent (AudioHelm.Param.kNoiseVolume, AirDroneNoise); //collision 0-1
+		AirDrone.SetParameterPercent(AudioHelm.Param.kFilterBlend, AirDronefilterBlend); //velX
+		AirDrone.SetParameterPercent(AudioHelm.Param.kArpOn, AirDroneArpOn); //velY
+		AirDrone.SetParameterPercent (AudioHelm.Param.kDelayTempo, AirDroneDelayTempo); //collision
+		AirDrone.SetParameterPercent (AudioHelm.Param.kDelaySync, AirDroneDelayTempo-0.2f); //collision combined
+ //collision 0-1
 
 	//Arp
-		Arp.SetParameterValue(AudioHelm.Param.kStutterTempo, ArpStutter); // posX
-		Arp.SetParameterValue(AudioHelm.Param.kStutterResampleTempo, ArpStutterResample); // posY
-		Arp.SetParameterPercent (AudioHelm.Param.kOscFeedbackAmount, ArpFeedback); //velX
+		Arp.SetParameterPercent(AudioHelm.Param.kStutterTempo, ArpStutter); // posX
+		Arp.SetParameterPercent(AudioHelm.Param.kStutterResampleSync, ArpStutter-1.0f); // posX combined
+		Arp.SetParameterPercent(AudioHelm.Param.kSubOctave, ArpSub); //posY
+		Arp.SetParameterPercent(AudioHelm.Param.kSubVolume, ArpSub+0.3f); // posY combined
+		Arp.SetParameterPercent (AudioHelm.Param.kOscFeedbackAmount, ArpFeedback);
+		Arp.SetParameterPercent (AudioHelm.Param.kDelayFeedback, ArpDelayFeedback); //velX
 		Arp.SetParameterPercent (AudioHelm.Param.kAmplitudeSustain, ArpSustain); // collision 0-1
 
 	//Lead
-		Lead.SetParameterPercent(AudioHelm.Param.kDelayDryWet, LeadDelayMix); //posX
-		Lead.SetParameterValue(AudioHelm.Param.kDelayFeedback, LeadDelayFeedback); //posY
-		Lead.SetParameterPercent(AudioHelm.Param.kDelaySync, LeadDelaySync); //velX
-		Lead.SetParameterPercent(AudioHelm.Param.kDelayTempo, LeadDelayTempo); //velY
-		Lead.SetParameterPercent(AudioHelm.Param.kAmplitudeSustain, LeadSustain); //collision 0.2 -1
+		Lead.SetParameterPercent(AudioHelm.Param.kArpOn, LeadMix); //posX
+		Lead.SetParameterPercent(AudioHelm.Param.kSubVolume, LeadMix+0.3f); //posX combined
+		Lead.SetParameterPercent(AudioHelm.Param.kSubShuffle, LeadSub-0.5f); //posY
+		Lead.SetParameterPercent(AudioHelm.Param.kSubOctave, LeadSub); //posY combined
+		Lead.SetParameterPercent(AudioHelm.Param.kAmplitudeRelease, LeadSustain); //velX
+		Lead.SetParameterPercent(AudioHelm.Param.kAmplitudeAttack, LeadAttack); //velY
+		//	Lead.SetParameterPercent(AudioHelm.Param.kDelaySync, LeadDelaySync); //collision 0.5 -1
+		//	Lead.SetParameterPercent(AudioHelm.Param.kDelayTempo, LeadDelayTempo); //collision combined 0.5 -1 
 }
 }

@@ -70,19 +70,19 @@ public class PersonManagerScript : MonoBehaviour, OpenTSPSListener  {
 		drone.name = "drone";
 		drone.defaultPosX = 0.0f;
 		drone.defaultPosY = 0.5f;
-		drone.defaultVelX = 0.1f;
+		drone.defaultVelX = 0.0f;
 		drone.defaultVelY = 0.0f;
 		//drone.defaultCol = 1.0f; collision 1 - 0
 		Instrument airDrone = new Instrument();
 		airDrone.name = "airDrone";
 		airDrone.defaultPosX = 1.0f;
 		airDrone.defaultPosY = 0.0f;
-		airDrone.defaultVelX = 0.5f;
-		airDrone.defaultVelY = 1.0f;
-		//airDrone.defaultCol = 0.0f; //collision 0 - 1
+		airDrone.defaultVelX = 1.0f;
+		airDrone.defaultVelY = 0.0f;
+		//airDrone.defaultCol = 0.5f; //collision 0.5 - 0.6?
 		Instrument arp = new Instrument();
 		arp.name = "arp";
-		arp.defaultPosX = 10.0f;
+		arp.defaultPosX = 1.0f;
 		arp.defaultPosY = 0.0f;
 		arp.defaultVelX = 0.5f;
 		arp.defaultVelY = 0.5f;
@@ -90,12 +90,13 @@ public class PersonManagerScript : MonoBehaviour, OpenTSPSListener  {
 		Instrument lead = new Instrument();
 		lead.name = "lead";
 		lead.defaultPosX = 0.0f;
-		lead.defaultPosY = 0.5f;
-		lead.defaultVelX = 0.5f;
-		lead.defaultVelY = 0.4f;
-		//lead.defaultCol = 0.2f; //collision 0 - 1
+		lead.defaultPosY = 0.0f;
+		lead.defaultVelX = 0.1f;
+		lead.defaultVelY = 0.0f;
+		//lead.defaultCol = 0.5f; //collision 0.5 - 1
 
 		instruments = new Instrument[6] { drums, bass, drone, airDrone, arp, lead };
+		//instruments = new Instrument[1] { arp};
 		receiver = new OpenTSPSReceiver( port );
 		receiver.addPersonListener( this );
 		//Security.PrefetchSocketPolicy("localhost",8843);
@@ -219,63 +220,65 @@ public class PersonManagerScript : MonoBehaviour, OpenTSPSListener  {
 	private void updateDrums(float npx, float npy, float nvx, float nvy)
 	{
 		HelmManagerScript hms = helmManager.GetComponent<HelmManagerScript>();
-		hms.SnareDelayMix = mapValue(npx, 0.0f, 1.0f);
-		hms.SnareDelayFeedback = mapValue(npy, -1.0f, 1.0f);
-		hms.SnareDelaySync = mapValue(nvx, 0.0f, 1.0f);
-		hms.HihatDelayMix = mapValue(npx, 0.0f, 1.0f);
-		hms.HihatDelayFeedback = mapValue(npy, -1.0f, 1.0f);
-		hms.HihatDelaySync = mapValue(nvy, 0.0f, 1.0f);
+		hms.SnareDelayMix = mapValue(npx, -1.0f, 1.0f); //posX
+		hms.HihatDelayFeedback = mapValue(npx, 0.0f, 0.8f); //posX combined
+		hms.HihatDelayMix = mapValue(npy, -1.0f, 1.0f); //posY
+		hms.SnareDelayFeedback = mapValue(npy, 0.0f, 0.8f); //posY combined
+		hms.SnareDelaySync = mapValue(nvx, 0.4f, 0.45f); //velX
+		hms.HihatDelaySync = mapValue(nvy, 0.4f, 0.45f); //velY
 		//hms.CymbalHitEnable(); //collision
 	}
 
 	private void updateBass(float npx, float npy, float nvx, float nvy)
 	{
 		HelmManagerScript hms = helmManager.GetComponent<HelmManagerScript>();
-		hms.BassFeedbackTune = mapValue(npx, -1.0f, 1.0f);
-		hms.BassFeedbackAmount = mapValue(npy, -1.0f, 1.0f);
+		hms.BassFeedbackTune = mapValue(npx, 0.0f, 1.0f);
+		hms.BassFeedbackAmount = mapValue(npy, 0.0f, 1.0f);
 		hms.BassSubShuffle = mapValue(nvx, 0.0f, 1.0f);
-		hms.BassOSC2tune = mapValue(nvy, -1.0f, 1.0f);
+		hms.BassOSC2tune = mapValue(nvy, 0.0f, 1.0f);
 		//hms.BassReso = mapValue(?, 0.0f, 1.0f); //collision
 	}
 
 	private void updateDrone(float npx, float npy, float nvx, float nvy)
 	{
 		HelmManagerScript hms = helmManager.GetComponent<HelmManagerScript>();
-		hms.DroneX = mapValue(npx, 0.0f, 1.0f);
-		hms.DroneY = mapValue(npy, 0.0f, 1.0f);
-		hms.DroneFeedback = mapValue (nvx, -1.0f, 1.0f);
-		hms.DroneMod = mapValue (nvy, 0.0f, 1.0f);
+		hms.DroneX = mapValue(npx, 0.0f, 0.9f);
+		hms.DroneY = mapValue(npy, 0.9f, 0.0f);
+		hms.DroneFeedback = mapValue (nvx, 0.0f, -0.1f);
+		hms.DroneMod = mapValue (nvy, 0.0f, 0.2f);
 		//hms.AirDronefilterBlend = mapValue (? , 1.0f, 0.0f); //collision
 	}
 
 	private void updateAirDrone(float npx, float npy, float nvx, float nvy)
 	{
 		HelmManagerScript hms = helmManager.GetComponent<HelmManagerScript>();
-		hms.AirDroneX = mapValue(npx, 0.0f, 1.0f);
+		hms.AirDroneX = mapValue(npx, 1.0f, 0.0f);
 		hms.AirDroneY = mapValue(npy, 0.0f, 1.0f);
-		hms.AirDroneDelayTempo = mapValue(nvx, 0.0f, 1.0f);
-		hms.AirDronefilterBlend = mapValue(nvy, 0.0f, 1.0f);
-		//hms.AirDroneNoise = mapValue(?, 0.0f, 1.0f); //collision
+		hms.AirDronefilterBlend = mapValue(nvx, 1.0f, 0.0f);
+		hms.AirDroneArpOn = mapValue(nvy, 0.0f, 1.0f);
+		//hms.AirDroneDelayTempo = mapValue(nvx, 0.0f, 0.0f); //collision
 	}
 
 	private void updateArp(float npx, float npy, float nvx, float nvy)
 	{
 		HelmManagerScript hms = helmManager.GetComponent<HelmManagerScript>();
-		hms.ArpStutter = mapValue(npx, 7.0f, 30.0f);
-		hms.ArpStutterResample = mapValue(npy, 7.0f, 30.0f);
-		hms.ArpFeedback = mapValue(nvx, 0.0f, 1.0f);
-		hms.ArpDelayFeedback = mapValue(nvy, 0.5f, 1.0f);
+		hms.ArpStutter = mapValue(npx, 0.0f, 1.0f); //posX
+		hms.ArpSub = mapValue(npy, 0.0f, 1.0f); //posY
+		hms.ArpFeedback = mapValue(nvx, 0.5f, 0.6f); //velX
+		hms.ArpDelayFeedback = mapValue(nvy, 0.5f, 0.6f); //velY
 		//hms.ArpSustain = mapValue(?, 0.0f, 1.0f); //collision
 	}
 
 	private void updateLead(float npx, float npy, float nvx, float nvy)
 	{
 		HelmManagerScript hms = helmManager.GetComponent<HelmManagerScript>();
-		hms.LeadDelayMix = mapValue(npx, 0.0f, 1.0f);
-		hms.LeadDelayFeedback = mapValue(npy, -1.0f, 1.0f);
-		hms.LeadDelaySync = mapValue(nvx, 0.0f, 1.0f);
-		hms.LeadDelayTempo = mapValue(nvy, 0.0f, 1.0f);
-		//hms.LeadSustain = mapValue(?, 0.2f, 1.0f); //collision
+		hms.LeadMix = mapValue(npx, 0.0f, 1.0f); //posX
+		hms.LeadSub = mapValue(npy, 1.0f, 0.0f); //posY
+		hms.LeadSustain = mapValue(nvx, 0.1f, 0.5f); //velX
+		hms.LeadAttack = mapValue(nvy,0.0f,0.2f); //velY
+	//	hms.LeadDelaySync = mapValue(?, 0.5f, 1.0f); //collision ?
+	//	hms.LeadDelayTempo = mapValue(?, 0.5f, 1.0f); //collision combined ?
+
 	}
 
 	private float mapValue(float value, float vmin, float vmax)
