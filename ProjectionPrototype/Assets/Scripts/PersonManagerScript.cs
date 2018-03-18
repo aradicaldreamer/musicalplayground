@@ -48,6 +48,7 @@ public class PersonManagerScript : MonoBehaviour, OpenTSPSListener  {
 	public GameObject personMarker; //used to represent people moving about in our example
 	
 	public GameObject helmManager;
+	public GameObject bpmController;
 	private Instrument[] instruments;
 
 	void Start() {
@@ -94,9 +95,12 @@ public class PersonManagerScript : MonoBehaviour, OpenTSPSListener  {
 		lead.defaultVelX = 0.1f;
 		lead.defaultVelY = 0.0f;
 		//lead.defaultCol = 0.5f; //collision 0.5 - 1
+		Instrument bpm = new Instrument();
+		bpm.name = "bpm";
+		bpm.defaultPosX = 1.4f;
 
-		instruments = new Instrument[6] { drums, bass, drone, airDrone, arp, lead };
-		//instruments = new Instrument[1] { arp};
+		instruments = new Instrument[7] { drums, bass, drone, airDrone, arp, lead, bpm };
+		//instruments = new Instrument[1] { bpm};
 		receiver = new OpenTSPSReceiver( port );
 		receiver.addPersonListener( this );
 		//Security.PrefetchSocketPolicy("localhost",8843);
@@ -146,6 +150,9 @@ public class PersonManagerScript : MonoBehaviour, OpenTSPSListener  {
 					break;
 				case "lead" :
 					updateLead(instrument.currPosX, instrument.currPosY, instrument.currVelX, instrument.currVelY);
+					break;
+				case "bpm" :
+					updateBPM(instrument.currPosX, instrument.currPosY, instrument.currVelX, instrument.currVelY);
 					break;
 
 			}
@@ -278,6 +285,13 @@ public class PersonManagerScript : MonoBehaviour, OpenTSPSListener  {
 		hms.LeadAttack = mapValue(nvy,0.0f,0.2f); //velY
 	//	hms.LeadDelaySync = mapValue(?, 0.5f, 1.0f); //collision ?
 	//	hms.LeadDelayTempo = mapValue(?, 0.5f, 1.0f); //collision combined ?
+
+	}
+	private void updateBPM(float npx, float npy, float nvx, float nvy)
+	{
+		AudioHelm.AudioHelmClock clock = bpmController.GetComponent<AudioHelm.AudioHelmClock>();
+		clock.bpm = mapValue (npx, -10.0f, 90.0f) + mapValue (npy,-10.0f, 90.0f);
+
 
 	}
 
