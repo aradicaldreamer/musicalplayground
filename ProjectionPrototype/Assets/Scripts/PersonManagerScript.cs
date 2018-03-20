@@ -35,6 +35,8 @@ using TSPS;
 public class PersonManagerScript : MonoBehaviour, OpenTSPSListener  {
 	
 	public int port = 12000; //set this from the UI to change the port
+
+	public Vector3 positionOffset = new Vector3 (0, 0, 0);
 	
 	//create some materials and apply a different one to each new person
 	public Material	[] materials;
@@ -170,6 +172,8 @@ public class PersonManagerScript : MonoBehaviour, OpenTSPSListener  {
 		Debug.Log(" person entered with ID " + person.id);
 		Person newPerson = new Person();
 		GameObject personObject = (GameObject)Instantiate(personMarker, positionForPerson(person), Quaternion.identity);
+		personObject.transform.SetParent (boundingPlane.transform);
+		personObject.transform.localPosition = positionForPerson (person);
 		personObject.GetComponent<Renderer>().material = materials[person.id % materials.Length];
 		newPerson.gmo = personObject;
 		peopleCubes[person.id] = newPerson;
@@ -260,7 +264,7 @@ public class PersonManagerScript : MonoBehaviour, OpenTSPSListener  {
 		Debug.Log("Person updated with ID " + person.id);
 		if(peopleCubes.ContainsKey(person.id)){
 			GameObject cubeToMove = peopleCubes[person.id].gmo;
-			cubeToMove.transform.position = positionForPerson(person);
+			cubeToMove.transform.localPosition = positionForPerson(person);
 		}
 	}
 
@@ -372,7 +376,7 @@ public class PersonManagerScript : MonoBehaviour, OpenTSPSListener  {
 	//maps the OpenTSPS coordinate system into one that matches the size of the boundingPlane
 	private Vector3 positionForPerson(OpenTSPSPerson person){
 		Bounds meshBounds = boundingPlane.GetComponent<MeshFilter>().sharedMesh.bounds;
-		return new Vector3( (float)(.5 - person.centroidX) * meshBounds.size.x, 0.25f, (float)(person.centroidY - .5) * meshBounds.size.z );
+		return new Vector3( (float)(.5 - person.centroidX) * meshBounds.size.x, 0.25f, (float)(person.centroidY - .5) * meshBounds.size.z ) + positionOffset;
 	}
 }
 
