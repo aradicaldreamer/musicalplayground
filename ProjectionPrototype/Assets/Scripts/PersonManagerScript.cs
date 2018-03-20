@@ -100,6 +100,7 @@ public class PersonManagerScript : MonoBehaviour, OpenTSPSListener  {
 		bpm.defaultPosX = 1.4f;
 
 		instruments = new Instrument[7] { drums, bass, drone, airDrone, arp, lead, bpm };
+		//instruments = new Instrument[2] { drums, bass };
 		//instruments = new Instrument[1] { bpm};
 		receiver = new OpenTSPSReceiver( port );
 		receiver.addPersonListener( this );
@@ -176,6 +177,57 @@ public class PersonManagerScript : MonoBehaviour, OpenTSPSListener  {
 		if (instrument != null) {
 			newPerson.instrument = instrument;
 			instrument.personAttached = person.id;
+			setInstrumentEnabled(instrument, true);
+		}
+	}
+
+	private void setInstrumentEnabled(Instrument instrument, bool value = true)
+	{
+		HelmManagerScript hms = helmManager.GetComponent<HelmManagerScript>();
+		switch(instrument.name)
+		{
+			case "drums" :
+				if (value) {
+					hms.DrumsEnable();
+				} else {
+					hms.DrumsDisable();
+				}
+				break;
+			case "bass" :
+				if (value) {
+					hms.BassEnable();
+				} else {
+					hms.BassDisable();
+				}
+				break;
+			/*case "drone" :
+				if (value) {
+					hms.DroneEnable();
+				} else {
+					hms.DroneDisable();
+				}
+				break;*/
+			case "airDrone" :
+				if (value) {
+					hms.AirDroneEnable();
+				} else {
+					hms.AirDroneDisable();
+				}
+				break;
+			case "arp" :
+				if (value) {
+					hms.ArpEnable();
+				} else {
+					hms.ArpDisable();
+				}
+				break;
+			case "lead" :
+				if (value) {
+					hms.LeadEnable();
+				} else {
+					hms.LeadDisable();
+				}
+				break;
 		}
 	}
 
@@ -305,7 +357,10 @@ public class PersonManagerScript : MonoBehaviour, OpenTSPSListener  {
 		if(peopleCubes.ContainsKey(person.id)){
 			GameObject cubeToRemove = peopleCubes[person.id].gmo;
 			Instrument instrument = peopleCubes[person.id].instrument;
-			if (instrument != null) instrument.personAttached = -1;
+			if (instrument != null) {
+				setInstrumentEnabled(instrument, false);
+				instrument.personAttached = -1;
+			}
 			peopleCubes[person.id].instrument = null;
 
 			peopleCubes.Remove(person.id);

@@ -129,12 +129,12 @@ public class HelmManagerScript : MonoBehaviour {
 	void Start () {
 		//string[] notes = { "C-2", "Db-2", "D-2", "Eb-2", "E-2", "F-2", "Gb-2", "G-2", "Ab-2","A-2","Bb-2","B-2","C-1", "Db-1", "D-1", "Eb-1", "E-1", "F-1", "Gb-1", "G-1", "Ab-1","A-1","Bb-1","B-1","C0", "Db0", "D0", "Eb0", "E0", "F0", "Gb0", "G0", "Ab0","A0","Bb0","B0","C1", "Db1", "D1", "Eb1", "E1", "F1", "Gb1", "G1", "Ab1","A1","Bb1","B1","C2", "Db2", "D2", "Eb2", "E2", "F2", "Gb2", "G2", "Ab2","A2","Bb2","B2","C3", "Db3", "D3", "Eb3", "E3", "F3", "Gb3", "G3", "Ab3","A3","Bb3","B3","C4", "Db4", "D4", "Eb4", "E4", "F4", "Gb4", "G4", "Ab4","A4","Bb4","B4","C5", "Db5", "D5", "Eb5", "E5", "F5", "Gb5", "G5", "Ab5","A5","Bb5","B5","C6", "Db6", "D6", "Eb6", "E6", "F6", "Gb6", "G6", "Ab6","A6","Bb6","B6"};
 		Invoke("DroneEnable", time);
-		Invoke("AirDroneEnable", time*4);
-		Invoke("BassEnable", time*8);
-		Invoke("DrumsEnable", time*12);
-		Invoke("ArpEnable", time*16);
-		Invoke ("LeadEnable", time*20);
-		Invoke ("CymbalHitEnable", time*12);
+		//Invoke("AirDroneEnable", time*4);
+		//Invoke("BassEnable", time*8);
+		//Invoke("DrumsEnable", time*12);
+		//Invoke("ArpEnable", time*16);
+		//Invoke ("LeadEnable", time*20);
+		//Invoke ("CymbalHitEnable", time*12);
 	}
 
 	public void DrumsEnable()
@@ -158,6 +158,12 @@ public class HelmManagerScript : MonoBehaviour {
 		HihatSeq.AddNote (G3, 12, 13,0.7f);
 		HihatSeq.AddNote (G3, 14, 15);
 
+	}
+	public void DrumsDisable()
+	{
+		KickSeq.Clear ();
+		SnareSeq.Clear ();
+		HihatSeq.Clear ();
 	}
 	public void BassEnable()
 	{
@@ -203,6 +209,10 @@ public class HelmManagerScript : MonoBehaviour {
 			Bass.NoteOn (B2);
 			Bass.NoteOn (B3);			
 		}
+	}
+	public void BassDisable()
+	{
+		Bass.AllNotesOff();
 	}
 	public void DroneEnable()
 	{
@@ -263,6 +273,10 @@ public class HelmManagerScript : MonoBehaviour {
 			Drone.NoteOn (C4, 1.0f);
 		}
 	}
+	public void DroneDisable()
+	{
+		Drone.AllNotesOff();
+	}
 	public void AirDroneEnable()
 	{
 		if (Chordi == 1) {
@@ -314,6 +328,10 @@ public class HelmManagerScript : MonoBehaviour {
 			AirDroneSeq.AddNote (C6, 0, 17);
 			AirDroneSeq.AddNote (D6, 0, 17);
 		}
+	}
+	public void AirDroneDisable()
+	{
+		AirDroneSeq.Clear ();
 	}
 	public void ArpEnable()
 	{
@@ -374,6 +392,10 @@ public class HelmManagerScript : MonoBehaviour {
 			ArpSeq.AddNote (C5, 0, 17);
 		}
 	}
+	public void ArpDisable()
+	{
+		ArpSeq.Clear ();
+	}
 	public void LeadEnable()
 	{
 		if (Chordi == 1) {
@@ -433,6 +455,10 @@ public class HelmManagerScript : MonoBehaviour {
 			LeadSeq.AddNote (F5, 8, 9);
 			LeadSeq.AddNote (D5, 13, 14);
 		}
+	}
+	public void LeadDisable()
+	{
+		LeadSeq.Clear ();
 	}
 	public void CymbalHitEnable()
 	{
