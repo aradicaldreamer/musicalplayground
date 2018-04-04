@@ -1,4 +1,4 @@
-/**
+﻿/**
  * OpenTSPS + Unity3d Extension
  * Created by James George on 11/24/2010
  * 
@@ -31,22 +31,25 @@ using System.Collections;
 using System.Collections.Generic;
 using TSPS;
 
-public class OpenTSPSUnityListener : MonoBehaviour, OpenTSPSListener  {
+public class TrackedSpaceScript : MonoBehaviour, OpenTSPSListener  {
 	
 	public int port = 12000; //set this from the UI to change the port
-	
-	//create some materials and apply a different one to each new person
-	public Material	[] materials;
+
+	public float originX;
+	public float originY;
+	public float sizeX;
+	public float sizeY;
 	
 	private OpenTSPSReceiver receiver;
 	//a place to hold game objects that we attach to people, maps person ID => their object
-	private Dictionary<int,GameObject> peopleCubes = new Dictionary<int,GameObject>();
-	
-	//game engine stuff for the example
-	public GameObject boundingPlane; //put the people on this plane
-	public GameObject personMarker; //used to represent people moving about in our example
+	private Dictionary<int,TrackedPerson> trackedPersonDict = new Dictionary<int,TrackedPerson>();
+	private List<TrackedPerson> trackedPersonList = new List<TrackedPerson>();
+
+	public GameObject personManager;
+	private PersonManagerScript personManagerScript;
 	
 	void Start() {
+		personManagerScript = personManager.GetComponent<PersonManagerScript>();
 		receiver = new OpenTSPSReceiver( port );
 		receiver.addPersonListener( this );
 		//Security.PrefetchSocketPolicy("localhost",8843);
@@ -68,10 +71,12 @@ public class OpenTSPSUnityListener : MonoBehaviour, OpenTSPSListener  {
 	
 	public void personEntered(OpenTSPSPerson person){
 		Debug.Log(" person entered with ID " + person.id);
-		GameObject personObject = (GameObject)Instantiate(personMarker, positionForPerson(person), Quaternion.identity);
-		personObject.GetComponent<Renderer>().material = materials[person.id % materials.Length];
-		peopleCubes[person.id] = personObject;
-
+		TrackedPerson newPerson = new TrackedPerson();
+		newPerson.id = person.id;
+		trackedPersonDict[person.id] = newPerson;
+		trackedPersonList.Add(newPerson);
+		personManagerScript.addPerson(newPerson);
+		updatePerson(newPerson, person);
 	}
 
 	public void personUpdated(OpenTSPSPerson person) {
@@ -81,19 +86,19 @@ public class OpenTSPSUnityListener : MonoBehaviour, OpenTSPSListener  {
 
 	public void personMoved(OpenTSPSPerson person){
 		Debug.Log("Person updated with ID " + person.id);
-		if(peopleCubes.ContainsKey(person.id)){
-			GameObject cubeToMove = peopleCubes[person.id];
-			cubeToMove.transform.position = positionForPerson(person);
+		if(trackedPersonDict.ContainsKey(person.id)){
+			TrackedPerson trackedPerson = trackedPersonDict[person.id];
+			personManagerScript.updatePerson(trackedPerson);
+			updatePerson(trackedPerson, person);
 		}
 	}
 
 	public void personWillLeave(OpenTSPSPerson person){
 		Debug.Log("Person leaving with ID " + person.id);
-		if(peopleCubes.ContainsKey(person.id)){
-			GameObject cubeToRemove = peopleCubes[person.id];
-			peopleCubes.Remove(person.id);
-			//delete it from the scene	
-			Destroy(cubeToRemove);
+		if(trackedPersonDict.ContainsKey(person.id)){
+			trackedPersonList.Remove(trackedPersonDict[person.id]);
+			personManagerScript.removePerson(trackedPersonDict[person.id]);
+			trackedPersonDict.Remove(person.id);
 		}
 	}
 
@@ -101,10 +106,40 @@ public class OpenTSPSUnityListener : MonoBehaviour, OpenTSPSListener  {
 	{
 		
 	}
-	
-	//maps the OpenTSPS coordinate system into one that matches the size of the boundingPlane
-	private Vector3 positionForPerson(OpenTSPSPerson person){
-		Bounds meshBounds = boundingPlane.GetComponent<MeshFilter>().sharedMesh.bounds;
-		return new Vector3( (float)(.5 - person.centroidX) * meshBounds.size.x, 0.25f, (float)(person.centroidY - .5) * meshBounds.size.z );
+
+	private void updatePerson(TrackedPerson trackedPerson, OpenTSPSPerson person)
+	{
+		trackedPerson.centroidX = person.centroidX;
+		trackedPerson.centroidY = person.centroidY;
+		trackedPerson.velocityX = person.velocityX;
+		trackedPerson.velocityY = person.velocityY;
+		trackedPerson.positionX = (float)(originX + (person.centroidX * sizeX));
+		trackedPerson.positionY = (float)(originY + (person.centroidY * sizeY));
+	}
+
+	public List<TrackedPerson> getAllTrackPersons()
+	{
+		return trackedPersonList;
+	}
+
+	public TrackedPerson getTrackedPersonByID(int id)
+	{
+		return trackedPersonDict[id];
+	}
+
+	public class TrackedPerson
+	{
+		public int id;
+		public int age;
+		public float centroidX;
+		public float centroidY;
+		public float velocityX;
+		public float velocityY;
+
+		public float positionX;
+		public float positionY;
+
+		public Color color = Color.HSVToRGB(Random.Range(0.0f, 1.0f), 1.0f, 1.0f);
+		
 	}
 }

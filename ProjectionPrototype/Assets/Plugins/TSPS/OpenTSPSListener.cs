@@ -76,5 +76,12 @@ namespace TSPS
 		 * @param  tcur  the TuioCursor reference associated to the addTuioCursor event
 		 */
 		void personWillLeave(OpenTSPSPerson person);
+
+		/**
+		 * This callback method is invoked by the TuioClient when an existing TuioObject is updated during the session.   
+		 *
+		 * @param  tobj  the TuioObject reference associated to the updateTuioObject event
+		 */
+		void sceneUpdated(OpenTSPSScene scene);
 	}
 }
