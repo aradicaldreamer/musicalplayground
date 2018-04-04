@@ -179,7 +179,7 @@ namespace TSPS
 				//create a scene object that can store global optical flow
 				//and scene time parameters
 				//OpenTSPSScene scene = new OpenTSPSScene();
-				if (scene == null)
+				/*if (scene == null)
 				{
 					scene = addScene(args);
 				}
@@ -189,7 +189,7 @@ namespace TSPS
 					if (listener!=null){
 						listener.sceneUpdated(scene);
 					}
-				}					
+				}*/					
 			}
 		}
 		
@@ -207,7 +207,7 @@ namespace TSPS
 			return newPerson;
 		}
 
-		private OpenTSPSScene addScene(ArrayList args)
+		/*private OpenTSPSScene addScene(ArrayList args)
 		{
 			OpenTSPSScene newScene = new OpenTSPSScene();
 			updateScene(newScene, args);
@@ -218,7 +218,7 @@ namespace TSPS
 				}
 			}
 			return newScene;
-		}
+		}*/
 		
 		/*
 		 * 0: pid;
@@ -277,14 +277,14 @@ namespace TSPS
 			//}			
 		}
 
-		private void updateScene(OpenTSPSScene scene, ArrayList args)
+		/*private void updateScene(OpenTSPSScene scene, ArrayList args)
 		{
-			scene.currentTime = (int)args[0];
+			/*scene.currentTime = (int)args[0];
 			scene.percentCovered = (int)args[1];
 			scene.numPeople = (int)args[2];
 			scene.averageMotionX = (float)args[3];
 			scene.averageMotionY = (float)args[4];
-		}
+		}*/
 		
 		public void addPersonListener(OpenTSPSListener listener) {
 			listeners.Add(listener);
