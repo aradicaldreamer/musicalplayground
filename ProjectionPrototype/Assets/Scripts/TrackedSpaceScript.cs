@@ -41,9 +41,6 @@ public class TrackedSpaceScript : MonoBehaviour, OpenTSPSListener  {
 	public float sizeY;
 	
 	private OpenTSPSReceiver receiver;
-	//a place to hold game objects that we attach to people, maps person ID => their object
-	private Dictionary<int,TrackedPerson> trackedPersonDict = new Dictionary<int,TrackedPerson>();
-	private List<TrackedPerson> trackedPersonList = new List<TrackedPerson>();
 
 	public GameObject personManager;
 	private PersonManagerScript personManagerScript;
@@ -73,8 +70,6 @@ public class TrackedSpaceScript : MonoBehaviour, OpenTSPSListener  {
 		Debug.Log(" person entered with ID " + person.id);
 		TrackedPerson newPerson = new TrackedPerson();
 		newPerson.id = person.id;
-		trackedPersonDict[person.id] = newPerson;
-		trackedPersonList.Add(newPerson);
 		personManagerScript.addPerson(newPerson);
 		updatePerson(newPerson, person);
 	}
@@ -86,25 +81,22 @@ public class TrackedSpaceScript : MonoBehaviour, OpenTSPSListener  {
 
 	public void personMoved(OpenTSPSPerson person){
 		Debug.Log("Person updated with ID " + person.id);
-		if(trackedPersonDict.ContainsKey(person.id)){
-			TrackedPerson trackedPerson = trackedPersonDict[person.id];
-			personManagerScript.updatePerson(trackedPerson);
+		if(personManagerScript.persons.ContainsKey(person.id)){
+			TrackedPerson trackedPerson = personManagerScript.persons[person.id];
 			updatePerson(trackedPerson, person);
 		}
 	}
 
 	public void personWillLeave(OpenTSPSPerson person){
 		Debug.Log("Person leaving with ID " + person.id);
-		if(trackedPersonDict.ContainsKey(person.id)){
-			trackedPersonList.Remove(trackedPersonDict[person.id]);
-			personManagerScript.removePerson(trackedPersonDict[person.id]);
-			trackedPersonDict.Remove(person.id);
+		if(personManagerScript.persons.ContainsKey(person.id)){
+			personManagerScript.removePerson(personManagerScript.persons[person.id]);
+			personManagerScript.persons.Remove(person.id);
 		}
 	}
 
 	public void sceneUpdated(OpenTSPSScene scene)
 	{
-		
 	}
 
 	private void updatePerson(TrackedPerson trackedPerson, OpenTSPSPerson person)
@@ -115,31 +107,5 @@ public class TrackedSpaceScript : MonoBehaviour, OpenTSPSListener  {
 		trackedPerson.velocityY = person.velocityY;
 		trackedPerson.positionX = (float)(originX + (person.centroidX * sizeX));
 		trackedPerson.positionY = (float)(originY + (person.centroidY * sizeY));
-	}
-
-	public List<TrackedPerson> getAllTrackPersons()
-	{
-		return trackedPersonList;
-	}
-
-	public TrackedPerson getTrackedPersonByID(int id)
-	{
-		return trackedPersonDict[id];
-	}
-
-	public class TrackedPerson
-	{
-		public int id;
-		public int age;
-		public float centroidX;
-		public float centroidY;
-		public float velocityX;
-		public float velocityY;
-
-		public float positionX;
-		public float positionY;
-
-		public Color color = Color.HSVToRGB(Random.Range(0.0f, 1.0f), 1.0f, 1.0f);
-		
 	}
 }

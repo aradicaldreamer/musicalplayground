@@ -86,13 +86,27 @@ public class InstrumentManagerScript : MonoBehaviour  {
 		bpm.name = "bpm";
 		bpm.defaultPosX = 1.4f;
 
-		instruments = new Instrument[7] { drums, bass, drone, airDrone, arp, lead, bpm };
-		//instruments = new Instrument[2] { drums, bass };
+		//instruments = new Instrument[7] { drums, bass, drone, airDrone, arp, lead, bpm };
+		instruments = new Instrument[1] { arp };
 		//instruments = new Instrument[1] { bpm};
 	}
 			
 	void Update () {
 		updateInstruments();
+	}
+
+	public void updatePersons(Dictionary<int,TrackedPerson> persons)
+	{
+		for (int i = 0; i < instruments.Length; i++)
+		{
+			Instrument instrument = instruments[i];
+			if (instrument.personAttached > -1) {
+				instrument.newPosX = persons [instrument.personAttached].centroidX;
+				instrument.newPosY = persons [instrument.personAttached].centroidY;
+				instrument.newVelX = persons [instrument.personAttached].velocityX;
+				instrument.newVelY = persons [instrument.personAttached].velocityY;
+			}
+		}
 	}
 	
 	private void updateInstruments()
@@ -142,6 +156,7 @@ public class InstrumentManagerScript : MonoBehaviour  {
 
 	public void setInstrumentEnabled(Instrument instrument, bool value = true)
 	{
+		Debug.Log (instrument.name + " " + value);
 		HelmManagerScript hms = helmManager.GetComponent<HelmManagerScript>();
 		switch(instrument.name)
 		{
@@ -190,7 +205,7 @@ public class InstrumentManagerScript : MonoBehaviour  {
 		}
 	}
 
-	public Instrument getNextInstrument(int personID)
+	public void assignInstrument(int personID)
 	{
 		List<Instrument> instrumentsNotAssigned = new List<Instrument>();
 		for (int i = 0; i < instruments.Length; i++)
@@ -205,10 +220,24 @@ public class InstrumentManagerScript : MonoBehaviour  {
 			System.Random rndwer = new System.Random();
 			int r = rndwer.Next(instrumentsNotAssigned.Count);
 			Instrument instrument = (Instrument)instrumentsNotAssigned[r];
+			setInstrumentEnabled (instrument, true);
 			instrument.personAttached = personID;
-			return instrument;
 		}
-		return null;
+	}
+
+	public void removeInstrument(int personID)
+	{
+		List<Instrument> instrumentsNotAssigned = new List<Instrument>();
+		for (int i = 0; i < instruments.Length; i++)
+		{
+			Instrument instrument = instruments[i];
+			if (instrument.personAttached == personID)
+			{
+				setInstrumentEnabled (instrument, false);
+				instrument.personAttached = -1;
+				break;
+			}
+		}
 	}
 
 	public void instrumentUpdate(Instrument instrument, float npx, float npy, float nvx, float nvy)

@@ -129,8 +129,6 @@ namespace TSPS
 		}
 
 		private void processMessage(OSCMessage message) {
-			Debug.Log("messages ");
-			
 			string address = message.Address;
 			ArrayList args = message.Values;
 			

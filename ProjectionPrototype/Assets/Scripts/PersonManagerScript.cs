@@ -34,59 +34,42 @@ using TSPS;
 
 public class PersonManagerScript : MonoBehaviour  {
 	
-	private Dictionary<int,Person> persons = new Dictionary<int,Person>();
+	public Dictionary<int,TrackedPerson> persons = new Dictionary<int,TrackedPerson>();
 
 	public GameObject instrumentManager;
 
 	void Start() {
 		
 	}
+
+	void Update () {
+
+	}
 			
 	void FixedUpdate () {
-		
+		instrumentManager.GetComponent<InstrumentManagerScript>().updatePersons (persons);
 	}
 
 	void OnDrawGizmos()
 	{
 		foreach (int key in persons.Keys)
 		{
-			Person person = persons[key];
+			TrackedPerson person = persons[key];
 			Gizmos.color = person.color;
-			Gizmos.DrawSphere(person.position, .1f);
+			Gizmos.DrawSphere(new Vector3(person.positionX, 0.0f, person.positionY), .1f);
 		}
 	}
 
-	public void addPerson(TrackedSpaceScript.TrackedPerson tperson)
+	public void addPerson(TrackedPerson tperson)
 	{
-		Person person = new Person();
-		person.id = tperson.id;
-		person.position = new Vector3(tperson.positionX, 0.0f, tperson.positionY);
-		//person.instrument = instrumentManager.GetComponent<InstrumentManagerScript>().getNextInstrument(person.id);
-		persons[person.id] = person;
+		persons[tperson.id] = tperson;
+		instrumentManager.GetComponent<InstrumentManagerScript>().assignInstrument(tperson.id);
 	}
 
-	public void updatePerson(TrackedSpaceScript.TrackedPerson tperson)
+	public void removePerson(TrackedPerson tperson)
 	{
-		if (persons.ContainsKey(tperson.id))
-		{
-			persons[tperson.id].position = new Vector3(tperson.positionX, 0.0f, tperson.positionY);
-		}
-	}
-
-	public void removePerson(TrackedSpaceScript.TrackedPerson tperson)
-	{
-		persons.Remove(tperson.id);
-	}
-
-	public class Person
-	{
-		public int id;
-		public Vector3 position = new Vector3(0.0f, 0.0f, 0.0f);
-
-		public Color color = Color.HSVToRGB(UnityEngine.Random.Range(0.0f, 1.0f), 1.0f, 1.0f);
-
-		public Instrument instrument;
-
+		instrumentManager.GetComponent<InstrumentManagerScript>().removeInstrument(tperson.id);
+		persons.Remove (tperson.id);
 	}
 }
 
