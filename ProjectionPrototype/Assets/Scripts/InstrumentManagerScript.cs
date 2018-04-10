@@ -86,8 +86,8 @@ public class InstrumentManagerScript : MonoBehaviour  {
 		bpm.name = "bpm";
 		bpm.defaultPosX = 1.4f;
 
-		//instruments = new Instrument[7] { drums, bass, drone, airDrone, arp, lead, bpm };
-		instruments = new Instrument[1] { arp };
+		instruments = new Instrument[7] { drums, bass, drone, airDrone, arp, lead, bpm };
+		//instruments = new Instrument[2] { bass, drone };
 		//instruments = new Instrument[1] { bpm};
 	}
 			
