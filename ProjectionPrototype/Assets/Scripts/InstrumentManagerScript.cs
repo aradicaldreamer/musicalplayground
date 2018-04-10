@@ -227,7 +227,7 @@ public class InstrumentManagerScript : MonoBehaviour  {
 
 	public void removeInstrument(int personID)
 	{
-		List<Instrument> instrumentsNotAssigned = new List<Instrument>();
+	//	List<Instrument> instrumentsNotAssigned = new List<Instrument>();
 		for (int i = 0; i < instruments.Length; i++)
 		{
 			Instrument instrument = instruments[i];

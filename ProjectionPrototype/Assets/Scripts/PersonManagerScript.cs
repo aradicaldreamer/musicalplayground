@@ -36,16 +36,14 @@ public class PersonManagerScript : MonoBehaviour  {
 	
 	public Dictionary<int,TrackedPerson> persons = new Dictionary<int,TrackedPerson>();
 
+	public static PersonManagerScript main;
+
 	public GameObject instrumentManager;
 
-	void Start() {
+	void Awake() {
+		main = this;
+	}
 		
-	}
-
-	void Update () {
-
-	}
-			
 	void FixedUpdate () {
 		instrumentManager.GetComponent<InstrumentManagerScript>().updatePersons (persons);
 	}

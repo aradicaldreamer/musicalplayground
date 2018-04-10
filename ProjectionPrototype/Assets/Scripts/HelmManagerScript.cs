@@ -100,11 +100,11 @@ public class HelmManagerScript : MonoBehaviour {
 
 	private int C4 = 72;
 	private int D4 = 74;
-	private int Eb4 = 75;
+//	private int Eb4 = 75;
 	private int E4= 76;
 	private int F4= 77;
 	private int G4= 79;
-	private int Ab4= 80;
+//	private int Ab4= 80;
 	private int A4= 81;
 	private int B4= 83;
 

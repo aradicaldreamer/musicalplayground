@@ -51,7 +51,7 @@ public class TrackedSpaceScript : MonoBehaviour, OpenTSPSListener  {
 		receiver.addPersonListener( this );
 		//Security.PrefetchSocketPolicy("localhost",8843);
 		receiver.connect();
-		Debug.Log("created receiver on port " + port);
+	//	Debug.Log("created receiver on port " + port);
 	}
 			
 	void Update () {
@@ -67,7 +67,7 @@ public class TrackedSpaceScript : MonoBehaviour, OpenTSPSListener  {
 	}
 	
 	public void personEntered(OpenTSPSPerson person){
-		Debug.Log(" person entered with ID " + person.id);
+		//Debug.Log(" person entered with ID " + person.id);
 		TrackedPerson newPerson = new TrackedPerson();
 		newPerson.id = person.id;
 		personManagerScript.addPerson(newPerson);
@@ -80,7 +80,7 @@ public class TrackedSpaceScript : MonoBehaviour, OpenTSPSListener  {
 	}
 
 	public void personMoved(OpenTSPSPerson person){
-		Debug.Log("Person updated with ID " + person.id);
+		//Debug.Log("Person updated with ID " + person.id);
 		if(personManagerScript.persons.ContainsKey(person.id)){
 			TrackedPerson trackedPerson = personManagerScript.persons[person.id];
 			updatePerson(trackedPerson, person);
@@ -88,7 +88,7 @@ public class TrackedSpaceScript : MonoBehaviour, OpenTSPSListener  {
 	}
 
 	public void personWillLeave(OpenTSPSPerson person){
-		Debug.Log("Person leaving with ID " + person.id);
+		//Debug.Log("Person leaving with ID " + person.id);
 		if(personManagerScript.persons.ContainsKey(person.id)){
 			personManagerScript.removePerson(personManagerScript.persons[person.id]);
 			personManagerScript.persons.Remove(person.id);
