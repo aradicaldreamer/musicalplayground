@@ -41,7 +41,7 @@ public class OscManager : MonoBehaviour {
 	void SendOscMessage(TrackedPerson person, ref OscMessage message) {
 		message.values.Add(person.positionX);
 		message.values.Add (person.positionY);
-		Debug.Log ("personX" + person.positionX);
-		Debug.Log ("personY" + person.positionY);
+		//Debug.Log ("personX" + person.positionX);
+		//Debug.Log ("personY" + person.positionY);
 	}
 }

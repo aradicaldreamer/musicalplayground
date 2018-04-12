@@ -156,7 +156,7 @@ public class InstrumentManagerScript : MonoBehaviour  {
 
 	public void setInstrumentEnabled(Instrument instrument, bool value = true)
 	{
-		Debug.Log (instrument.name + " " + value);
+		//Debug.Log (instrument.name + " " + value);
 		HelmManagerScript hms = helmManager.GetComponent<HelmManagerScript>();
 		switch(instrument.name)
 		{
