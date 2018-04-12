@@ -16,7 +16,7 @@ public class TrackingCubeController : MonoBehaviour {
 		startScale = transform.localScale;
 		id = TimeController.main.idCounter;
 		TimeController.main.idCounter++;
-		print ("ID: "+ id.ToString());
+		
 		
 	}
 	

@@ -26,8 +26,8 @@ GameObject:
   - component: {fileID: 114211101979164892}
   - component: {fileID: 114282914492000384}
   m_Layer: 0
-  m_Name: Cube
-  m_TagString: Untagged
+  m_Name: trackCube
+  m_TagString: TrackingCube
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - clipping_floor
+  - TrackingCube
+  - TaggedCube
   layers:
   - Default
   - TransparentFX

@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114467326812689048}
   m_Layer: 0
   m_Name: Cube 1
-  m_TagString: Untagged
+  m_TagString: TrackingCube
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -91,7 +91,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1473449548893700}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -107,4 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb127b85a1c7448bca416a577a17142a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
+  trackingWeight: 1
   decaySpeed: 0.1
+  myCollector: {fileID: 0}

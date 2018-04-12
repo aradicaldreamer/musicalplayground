@@ -4,16 +4,24 @@ using UnityEngine;
 
 public class CubeCollectorController : MonoBehaviour {
 
-	float weightValue = 0f;
+	public float weightValue = 0f;
 
 	Dictionary<float, TrackingCubeController> trackingCubes = new Dictionary<float, TrackingCubeController>();
 
-//	void Update() {
-//		foreach (int key in trackingCubes.Keys) {
-//			TrackingCubeController trackingcube = trackingCubes [key];
-//			weightValue + trackingcube.trackingWeight;
-//		}
-//	}
+	void Update() {
+
+		weightValue = 0f;
+
+		foreach (int key in trackingCubes.Keys) {
+			TrackingCubeController trackingcube = trackingCubes [key];
+			weightValue += trackingcube.trackingWeight;
+		}
+
+		if (weightValue < 0) {
+			weightValue = 0;
+		}
+	}
+
 
 	void OnTriggerEnter(Collider other) {
 		print ("happens");
