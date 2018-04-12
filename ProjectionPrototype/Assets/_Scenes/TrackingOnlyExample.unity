@@ -1575,6 +1575,8 @@ MonoBehaviour:
   instrumentManager: {fileID: 1794436539}
   trackingCube: {fileID: 1436771667186292, guid: 2ad7481d3e646e542877b0bcbc995e2d,
     type: 2}
+  setTrackingCubeTime: 0.5
+  trackingCubeTimer: 0
 --- !u!1 &1049339050
 GameObject:
   m_ObjectHideFlags: 0
@@ -2615,48 +2617,6 @@ MonoBehaviour:
   synthParamValue14: 0
   synthParamValue15: 0
   synthParameters: []
---- !u!1001 &1638778573
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4466648981865962, guid: 2ad7481d3e646e542877b0bcbc995e2d, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -8.89962
-      objectReference: {fileID: 0}
-    - target: {fileID: 4466648981865962, guid: 2ad7481d3e646e542877b0bcbc995e2d, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -12.844314
-      objectReference: {fileID: 0}
-    - target: {fileID: 4466648981865962, guid: 2ad7481d3e646e542877b0bcbc995e2d, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -7.867178
-      objectReference: {fileID: 0}
-    - target: {fileID: 4466648981865962, guid: 2ad7481d3e646e542877b0bcbc995e2d, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4466648981865962, guid: 2ad7481d3e646e542877b0bcbc995e2d, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4466648981865962, guid: 2ad7481d3e646e542877b0bcbc995e2d, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4466648981865962, guid: 2ad7481d3e646e542877b0bcbc995e2d, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4466648981865962, guid: 2ad7481d3e646e542877b0bcbc995e2d, type: 2}
-      propertyPath: m_RootOrder
-      value: 14
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 2ad7481d3e646e542877b0bcbc995e2d, type: 2}
-  m_IsPrefabParent: 0
 --- !u!83 &1647605840
 AudioClip:
   m_ObjectHideFlags: 0
