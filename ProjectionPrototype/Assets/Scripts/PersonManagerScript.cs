@@ -41,6 +41,8 @@ public class PersonManagerScript : MonoBehaviour  {
 	public GameObject instrumentManager;
 
     [SerializeField] GameObject trackingCube;
+    [SerializeField] float setTrackingCubeTime = 0.5f;
+    [SerializeField] float trackingCubeTimer;
 
 	void Awake() {
 		main = this;
@@ -49,13 +51,23 @@ public class PersonManagerScript : MonoBehaviour  {
 	void FixedUpdate () {
 		instrumentManager.GetComponent<InstrumentManagerScript>().updatePersons (persons);
 
-        //making tracking cubes.
 
-        foreach (int key in persons.Keys)
+        //making tracking cubes.
+        if (trackingCubeTimer <= 0f)
         {
-            TrackedPerson person = persons[key];
-            Instantiate(trackingCube, new Vector3(person.positionX, 0f, person.positionY), Quaternion.identity); 
+            foreach (int key in persons.Keys)
+            {
+                TrackedPerson person = persons[key];
+                Instantiate(trackingCube, new Vector3(person.positionX, 0f, person.positionY), Quaternion.identity);
+            }
+
+            //reset the timer
+            trackingCubeTimer = setTrackingCubeTime;
+        } else
+        {
+            trackingCubeTimer -= Time.deltaTime;
         }
+        
 
 	}
 
