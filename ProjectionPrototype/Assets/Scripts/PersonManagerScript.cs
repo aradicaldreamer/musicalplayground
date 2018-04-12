@@ -40,12 +40,22 @@ public class PersonManagerScript : MonoBehaviour  {
 
 	public GameObject instrumentManager;
 
+    [SerializeField] GameObject trackingCube;
+
 	void Awake() {
 		main = this;
 	}
 		
 	void FixedUpdate () {
 		instrumentManager.GetComponent<InstrumentManagerScript>().updatePersons (persons);
+
+        //making tracking cubes.
+        foreach (int key in persons.Keys)
+        {
+            TrackedPerson person = persons[key];
+            Instantiate(trackingCube, new Vector3(person.positionX, 0f, person.positionY), Quaternion.identity); 
+        }
+
 	}
 
 	void OnDrawGizmos()
@@ -62,6 +72,8 @@ public class PersonManagerScript : MonoBehaviour  {
 	{
 		persons[tperson.id] = tperson;
 		instrumentManager.GetComponent<InstrumentManagerScript>().assignInstrument(tperson.id);
+        //
+
 	}
 
 	public void removePerson(TrackedPerson tperson)
