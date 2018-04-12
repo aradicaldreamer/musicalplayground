@@ -50,6 +50,7 @@ public class PersonManagerScript : MonoBehaviour  {
 		instrumentManager.GetComponent<InstrumentManagerScript>().updatePersons (persons);
 
         //making tracking cubes.
+
         foreach (int key in persons.Keys)
         {
             TrackedPerson person = persons[key];
