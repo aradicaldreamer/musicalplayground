@@ -14,6 +14,7 @@ public class MachineLearningGridController : MonoBehaviour {
     public OSC osc;
     private float MsgTimer  = 0.0f;
     [SerializeField] float MessageInterval = 1.0f;
+    [SerializeField] bool useWekinator = false;
 
 	void Awake() {
 		main = this;
@@ -46,15 +47,21 @@ public class MachineLearningGridController : MonoBehaviour {
 	}
 
 	void SendMessage() {
-        OscMessage message = new OscMessage();
-        message.address = "/wek/inputs";
+        
 
-        for (int i = 0; i < collectorList.Count; i++)
+        if (useWekinator)
         {
-            message.values.Add(collectorList[i].weightValue);  
-        }
+            OscMessage message = new OscMessage();
+            message.address = "/wek/inputs";
 
-        osc.Send(message);
+            for (int i = 0; i < collectorList.Count; i++)
+            {
+                message.values.Add(collectorList[i].weightValue);
+            }
+
+            osc.Send(message);
+        }
+        
 
 
     }
