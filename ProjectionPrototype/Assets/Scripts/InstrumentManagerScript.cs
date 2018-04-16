@@ -101,10 +101,12 @@ public class InstrumentManagerScript : MonoBehaviour  {
 		{
 			Instrument instrument = instruments[i];
 			if (instrument.personAttached > -1) {
-				instrument.newPosX = persons [instrument.personAttached].centroidX;
-				instrument.newPosY = persons [instrument.personAttached].centroidY;
-				instrument.newVelX = persons [instrument.personAttached].velocityX;
-				instrument.newVelY = persons [instrument.personAttached].velocityY;
+				if (persons.ContainsKey(instrument.personAttached)) {
+					instrument.newPosX = persons [instrument.personAttached].centroidX;
+					instrument.newPosY = persons [instrument.personAttached].centroidY;
+					instrument.newVelX = persons [instrument.personAttached].velocityX;
+					instrument.newVelY = persons [instrument.personAttached].velocityY;
+				}
 			}
 		}
 	}

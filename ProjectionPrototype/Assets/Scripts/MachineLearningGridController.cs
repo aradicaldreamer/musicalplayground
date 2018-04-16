@@ -37,34 +37,31 @@ public class MachineLearningGridController : MonoBehaviour {
 			}
 		}
 	}
-	private void Update()
-	{
-		
-		if (MsgTimer < Time.time) {
-			SendMessage();
-            print("working");
-            MsgTimer = Time.time + MessageInterval;
-		}
-	}
+//	private void Update()
+//	{
+//		
+//		if (MsgTimer < Time.time) {
+//			SendMessage();
+//            
+//            MsgTimer = Time.time + MessageInterval;
+//		}
+//	}
 
-	void SendMessage() {
-        
-        if (useWekinator)
-        {
-            OscMessage message = new OscMessage();
-            message.address = "/wek/inputs";
-
-            for (int i = 0; i < collectorList.Count; i++)
-            {
-                message.values.Add(collectorList[i].weightValue);
-            }
-
-            osc.Send(message);
-        }
-        
-
-
-    }
+//	void SendMessage() {
+//        
+//        if (useWekinator)
+//        {
+//            OscMessage message = new OscMessage();
+//            message.address = "/wek/inputs";
+//
+//            for (int i = 0; i < collectorList.Count; i++)
+//            {
+//                message.values.Add(collectorList[i].weightValue);
+//            }
+//
+//            osc.Send(message);
+//        }
+  //  }
 
 	
 }
