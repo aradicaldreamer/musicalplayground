@@ -24,11 +24,11 @@ public class CubeCollectorController : MonoBehaviour {
 
 
 	void OnTriggerEnter(Collider other) {
-		print ("happens");
+		
 
 		if (other.tag == "TrackingCube") {
 			
-			print ("collision");
+			
 			TrackingCubeController trackingcube = other.GetComponent<TrackingCubeController> ();
 			trackingcube.myCollector = this;
 

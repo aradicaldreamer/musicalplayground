@@ -8,11 +8,15 @@ public class MachineLearningGridController : MonoBehaviour {
 	[SerializeField] float ySize = 1f;
 	[SerializeField] float spacing = 0.1f;
 
-	public GameObject cubeCollector;
+	public GameObject cubeCollectorPrefab;
+    public List<CubeCollectorController> collectorList = new List<CubeCollectorController>();
+    public OSC osc;
+    [SerializeField] float MsgTimer  = 0f;
+    [SerializeField] float MessageInterval = 1f;
 
-
-	// Use this for initialization
 	void Start () {
+        
+        // instantiating collector cubes for machine learning.
 		float xPos,yPos = 0;
 
 		for (float i = 0; i < xSize ; i += spacing) {
@@ -22,15 +26,32 @@ public class MachineLearningGridController : MonoBehaviour {
 
 				Vector3 position = new Vector3 (xPos, 0, yPos);
 
-				Instantiate (cubeCollector, position, Quaternion.identity);
+				GameObject inst = Instantiate (cubeCollectorPrefab, position, Quaternion.identity);
+                collectorList.Add(inst.GetComponent<CubeCollectorController>());
+
 			}
 		}
-
+	}
+	private void Update()
+	{
+        SendMessage();
 
 	}
 
-	// Update is called once per frame
-	void Update () {
-		
-	}
+	void SendMessage() {
+        OscMessage message = new OscMessage();
+        message.address = "/wek/inputs";
+
+        for (int i = 0; i < collectorList.Count; i++)
+        {
+            message.values.Add(collectorList[i].weightValue);
+            
+        }
+
+        osc.Send(message);
+
+
+    }
+
+	
 }
