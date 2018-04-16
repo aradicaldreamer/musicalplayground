@@ -40,6 +40,9 @@ public class PersonManagerScript : MonoBehaviour  {
 
 	public GameObject instrumentManager;
 
+	public GameObject trackedEffect;
+	public Dictionary<int,GameObject> trackedEffects = new Dictionary<int,GameObject>();
+
 	public GameObject trackingCube;
 	public float trackingCubeTimer = 0f;
 	public float setTrackingCubeTimer = 0.5f;
@@ -53,6 +56,12 @@ public class PersonManagerScript : MonoBehaviour  {
 		
 	void FixedUpdate () {
 		instrumentManager.GetComponent<InstrumentManagerScript>().updatePersons (persons);
+
+		foreach (int key in persons.Keys) {
+			TrackedPerson tp = persons[key];
+			GameObject te = trackedEffects [key];
+			te.transform.position = new Vector3(tp.positionX, 1.0f, tp.positionY);
+		}
 
 		/*if (trackingCubeTimer <= 0f) {
 			foreach (int key in persons.Keys) {
@@ -110,6 +119,8 @@ public class PersonManagerScript : MonoBehaviour  {
 	{
 		persons[tperson.id] = tperson;
 		instrumentManager.GetComponent<InstrumentManagerScript>().assignInstrument(tperson.id);
+		GameObject te = Instantiate(trackedEffect, new Vector3(tperson.positionX, 0.0f, tperson.positionY), Quaternion.identity);
+		trackedEffects[tperson.id] = te;
         //
 
 	}
@@ -118,6 +129,9 @@ public class PersonManagerScript : MonoBehaviour  {
 	{
 		instrumentManager.GetComponent<InstrumentManagerScript>().removeInstrument(tperson.id);
 		persons.Remove (tperson.id);
+		GameObject te = trackedEffects[tperson.id];
+		Destroy(te);
+		trackedEffects.Remove(tperson.id);
 	}
 }
 
