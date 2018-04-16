@@ -39,16 +39,16 @@ public class MachineLearningGridController : MonoBehaviour {
 	}
 	private void Update()
 	{
-		MsgTimer += Time.deltaTime;
-		if (MsgTimer > MessageInterval) {
+		
+		if (MsgTimer < Time.time) {
 			SendMessage();
-			MsgTimer = 0;
+            print("working");
+            MsgTimer = Time.time + MessageInterval;
 		}
 	}
 
 	void SendMessage() {
         
-
         if (useWekinator)
         {
             OscMessage message = new OscMessage();
