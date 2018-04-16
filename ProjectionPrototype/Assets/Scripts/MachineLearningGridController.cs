@@ -8,12 +8,16 @@ public class MachineLearningGridController : MonoBehaviour {
 	[SerializeField] float ySize = 1f;
 	[SerializeField] float spacing = 0.1f;
 
+	public static MachineLearningGridController main;
 	public GameObject cubeCollectorPrefab;
     public List<CubeCollectorController> collectorList = new List<CubeCollectorController>();
     public OSC osc;
-    [SerializeField] float MsgTimer  = 0f;
-    [SerializeField] float MessageInterval = 1f;
+    private float MsgTimer  = 0.0f;
+    [SerializeField] float MessageInterval = 1.0f;
 
+	void Awake() {
+		main = this;
+	}
 	void Start () {
         
         // instantiating collector cubes for machine learning.
@@ -34,8 +38,11 @@ public class MachineLearningGridController : MonoBehaviour {
 	}
 	private void Update()
 	{
-        SendMessage();
-
+		MsgTimer += Time.deltaTime;
+		if (MsgTimer > MessageInterval) {
+			SendMessage();
+			MsgTimer = 0;
+		}
 	}
 
 	void SendMessage() {
@@ -44,8 +51,7 @@ public class MachineLearningGridController : MonoBehaviour {
 
         for (int i = 0; i < collectorList.Count; i++)
         {
-            message.values.Add(collectorList[i].weightValue);
-            
+            message.values.Add(collectorList[i].weightValue);  
         }
 
         osc.Send(message);
