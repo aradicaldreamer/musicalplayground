@@ -54,7 +54,7 @@ public class PersonManagerScript : MonoBehaviour  {
 	void FixedUpdate () {
 		instrumentManager.GetComponent<InstrumentManagerScript>().updatePersons (persons);
 
-		if (trackingCubeTimer <= 0f) {
+		/*if (trackingCubeTimer <= 0f) {
 			foreach (int key in persons.Keys) {
 				TrackedPerson person = persons [key];
 				Instantiate (trackingCube, new Vector3 (person.positionX, 0f, person.positionY), Quaternion.identity);
@@ -65,7 +65,7 @@ public class PersonManagerScript : MonoBehaviour  {
 
 		} else {
 			trackingCubeTimer -= Time.deltaTime;
-		}
+		}*/
 
 
 		/*
