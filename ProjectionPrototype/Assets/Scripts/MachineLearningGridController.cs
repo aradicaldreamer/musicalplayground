@@ -11,16 +11,18 @@ public class MachineLearningGridController : MonoBehaviour {
 	public static MachineLearningGridController main;
 	public GameObject cubeCollectorPrefab;
     public List<CubeCollectorController> collectorList = new List<CubeCollectorController>();
-   // public OSC osc;
-    private float MsgTimer  = 0.0f;
+    public OSC osc;
+   	private float MsgTimer  = 0.0f;
     [SerializeField] float MessageInterval = 1.0f;
-   // [SerializeField] bool useWekinator = false;
+    [SerializeField] bool useWekinator = false;
 
 	void Awake() {
 		main = this;
 	}
 	void Start () {
-        
+		//Wekinator Outputs
+		osc.SetAddressHandler( "/wek/outputs" , OnReceive );
+
         // instantiating collector cubes for machine learning.
 		float xPos,yPos = 0;
 
@@ -37,31 +39,53 @@ public class MachineLearningGridController : MonoBehaviour {
 			}
 		}
 	}
-//	private void Update()
-//	{
-//		
-//		if (MsgTimer < Time.time) {
-//			SendMessage();
-//            
-//            MsgTimer = Time.time + MessageInterval;
-//		}
-//	}
 
-//	void SendMessage() {
-//        
-//        if (useWekinator)
-//        {
-//            OscMessage message = new OscMessage();
-//            message.address = "/wek/inputs";
-//
-//            for (int i = 0; i < collectorList.Count; i++)
-//            {
-//                message.values.Add(collectorList[i].weightValue);
-//            }
-//
-//            osc.Send(message);
-//        }
-  //  }
+	void OnReceive(OscMessage message){
+//		float x = message.GetFloat(0);
+//		float y = message.GetFloat(1);
+
+		HelmManagerScript.main.Chordi = message.GetFloat (0);
+		HelmManagerScript.main.Chordii = message.GetFloat (1);
+		HelmManagerScript.main.Chordiv = message.GetFloat (2);
+		HelmManagerScript.main.Chordv = message.GetFloat (3);
+		HelmManagerScript.main.Chordvi = message.GetFloat (4);
+		HelmManagerScript.main.Chordbvii = message.GetFloat (5);
+		HelmManagerScript.main.Chordvii = message.GetFloat (6);
+
+		//Debug.Log(" x = " + x);
+		//Debug.Log(" y = " + y);
+
+	}
+
+	private void Update()
+	{
+
+
+//		SendMessage ();
+		if (MsgTimer < Time.time) {
+			SendMessage();
+            
+            MsgTimer = Time.time + MessageInterval;
+		}
+	}
+
+	void SendMessage() {
+        
+        if (useWekinator)
+        {
+            OscMessage message = new OscMessage();
+            message.address = "/wek/inputs";
+
+
+			// 197 is the limit for sending messages
+			for (int i = 0; i < collectorList.Count; i++) 
+            {
+                message.values.Add(collectorList[i].weightValue);
+            }
+
+            osc.Send(message);
+        }
+    }
 
 	
 }

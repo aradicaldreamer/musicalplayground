@@ -20,13 +20,13 @@ public class HelmManagerScript : MonoBehaviour {
 	public AudioHelm.Sequencer AirDroneSeq;
 	public AudioHelm.Sequencer LeadSeq;
 	[Header("Chord Picker")]
-	public int Chordi = 1;
-	public int Chordii = 0;
-	public int Chordiv = 0;
-	public int Chordv = 0;
-	public int Chordvi = 0;
-	public int Chordbvii = 0;
-	public int Chordvii = 0;
+	public float Chordi, Chordii, Chordiv, Chordv, Chordvi, Chordbvii, Chordvii = 0;
+//	public int Chordii = 0;
+//	public int Chordiv = 0;
+//	public int Chordv = 0;
+//	public int Chordvi = 0;
+//	public int Chordbvii = 0;
+//	public int Chordvii = 0;
 	[Header("Drum Parameters")]
 	//Snare Parameters
 	public float SnareDelayMix = 0.0f; // posX
@@ -124,6 +124,12 @@ public class HelmManagerScript : MonoBehaviour {
 	private int A6= 105;
 	private int B6= 107;
 	private int C6= 108;
+
+	public static HelmManagerScript main;
+
+	void Awake() {
+		main = this;
+	}
 
 	// Use this for initialization
 	void Start () {
