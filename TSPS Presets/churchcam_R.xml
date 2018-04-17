@@ -41,10 +41,10 @@
     <val_0>0.100000001</val_0>
 </RELEARN_BACKGROUND>
 <THRESHOLD>
-    <val_0>34.866668701</val_0>
+    <val_0>49.918518066</val_0>
 </THRESHOLD>
 <BLOB_TYPE>
-    <val_0>1.000000000</val_0>
+    <val_0>2.000000000</val_0>
 </BLOB_TYPE>
 <USE_HIGHPASS>
     <val_0>0.000000000</val_0>
@@ -59,16 +59,16 @@
     <val_0>1.000000000</val_0>
 </HIGHPASS_NOISE>
 <USE_SMOOTHING>
-    <val_0>0.000000000</val_0>
+    <val_0>1.000000000</val_0>
 </USE_SMOOTHING>
 <SMOOTH_AMOUNT>
-    <val_0>7.722221851</val_0>
+    <val_0>7.888888836</val_0>
 </SMOOTH_AMOUNT>
 <MIN_BLOB>
-    <val_0>1.000000000</val_0>
+    <val_0>1.306037068</val_0>
 </MIN_BLOB>
 <MAX_BLOB>
-    <val_0>75.580001831</val_0>
+    <val_0>80.759994507</val_0>
 </MAX_BLOB>
 <FIND_HOLES>
     <val_0>1.000000000</val_0>
@@ -80,7 +80,7 @@
     <val_0>0.000000000</val_0>
 </HAAR_PADDING>
 <SEND_OSC>
-    <val_0>0.000000000</val_0>
+    <val_0>1.000000000</val_0>
 </SEND_OSC>
 <OSC_HOST>
     <val_0>127.0.0.1</val_0>
