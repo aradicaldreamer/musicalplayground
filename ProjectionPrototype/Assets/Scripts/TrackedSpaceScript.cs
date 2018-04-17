@@ -59,13 +59,6 @@ public class TrackedSpaceScript : MonoBehaviour, OpenTSPSListener  {
 		receiver.update();
 	}
 	
-	
-	void OnGUI() {
-		if( receiver.isConnected() ) {
-			GUI.Label( new Rect( 10, 10, 500, 100), "Connected to TSPS on Port " + port );
-		}
-	}
-	
 	public void personEntered(OpenTSPSPerson person){
 		//Debug.Log(" person entered with ID " + person.id);
 		TrackedPerson newPerson = new TrackedPerson();

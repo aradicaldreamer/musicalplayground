@@ -51,6 +51,7 @@ public class PersonManagerScript : MonoBehaviour  {
     //[SerializeField] float trackingCubeTimer;
 
 	void Awake() {
+		Cursor.visible = false;
 		main = this;
 	}
 		
