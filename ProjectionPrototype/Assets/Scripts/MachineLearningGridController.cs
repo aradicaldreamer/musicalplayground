@@ -11,10 +11,10 @@ public class MachineLearningGridController : MonoBehaviour {
 	public static MachineLearningGridController main;
 	public GameObject cubeCollectorPrefab;
     public List<CubeCollectorController> collectorList = new List<CubeCollectorController>();
-    public OSC osc;
+   // public OSC osc;
     private float MsgTimer  = 0.0f;
     [SerializeField] float MessageInterval = 1.0f;
-    [SerializeField] bool useWekinator = false;
+   // [SerializeField] bool useWekinator = false;
 
 	void Awake() {
 		main = this;
