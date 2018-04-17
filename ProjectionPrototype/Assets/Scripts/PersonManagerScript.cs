@@ -62,6 +62,18 @@ public class PersonManagerScript : MonoBehaviour  {
 			TrackedPerson tp = persons[key];
 			GameObject te = trackedEffects [key];
 			te.transform.position = new Vector3(tp.positionX, 1.0f, tp.positionY);
+
+			if (trackingCubeTimer <= 0f) {
+				// creating ML tracking cubes
+				Instantiate(trackingCube, new Vector3 (tp.positionX, 0f, tp.positionY), Quaternion.identity);
+			}
+		}
+
+		// reset timer
+		if (trackingCubeTimer <= 0f) {
+			trackingCubeTimer = setTrackingCubeTimer;
+		} else {
+			trackingCubeTimer -= Time.deltaTime;
 		}
 
 		/*if (trackingCubeTimer <= 0f) {
