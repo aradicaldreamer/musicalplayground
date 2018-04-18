@@ -94,6 +94,7 @@ public class TrackedSpaceScript : MonoBehaviour, OpenTSPSListener  {
 
 	private void updatePerson(TrackedPerson trackedPerson, OpenTSPSPerson person)
 	{
+		trackedPerson.age = person.age;
 		trackedPerson.centroidX = person.centroidX;
 		trackedPerson.centroidY = person.centroidY;
 		trackedPerson.velocityX = person.velocityX;

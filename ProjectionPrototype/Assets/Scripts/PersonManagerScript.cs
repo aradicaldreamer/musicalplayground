@@ -63,18 +63,18 @@ public class PersonManagerScript : MonoBehaviour  {
 			GameObject te = trackedEffects [key];
 			te.transform.position = new Vector3(tp.positionX, 1.0f, tp.positionY);
 
-			if (trackingCubeTimer <= 0f) {
+			/*if (trackingCubeTimer <= 0f) {
 				// creating ML tracking cubes
 				Instantiate(trackingCube, new Vector3 (tp.positionX, 0f, tp.positionY), Quaternion.identity);
-			}
+			}*/
 		}
 
-		// reset timer
+		/*// reset timer
 		if (trackingCubeTimer <= 0f) {
 			trackingCubeTimer = setTrackingCubeTimer;
 		} else {
 			trackingCubeTimer -= Time.deltaTime;
-		}
+		}*/
 
 		/*if (trackingCubeTimer <= 0f) {
 			foreach (int key in persons.Keys) {
@@ -134,6 +134,9 @@ public class PersonManagerScript : MonoBehaviour  {
 		instrumentManager.GetComponent<InstrumentManagerScript>().assignInstrument(tperson.id);
 		GameObject te = Instantiate(trackedEffect, new Vector3(tperson.positionX, 0.0f, tperson.positionY), Quaternion.identity);
 		trackedEffects[tperson.id] = te;
+		ParticleSystem ps = te.GetComponent<ParticleSystem>();
+		var em = ps.emission;
+		em.rateOverDistance = 150;
         //
 
 	}
