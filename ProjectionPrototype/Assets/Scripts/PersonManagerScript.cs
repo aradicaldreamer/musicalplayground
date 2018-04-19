@@ -70,6 +70,15 @@ public class PersonManagerScript : MonoBehaviour  {
 			}*/
 		}
 
+		foreach (int key in recentlyRemoved.Keys) {
+			TrackedPerson tp = recentlyRemoved[key];
+			tp.dead += Time.fixedDeltaTime;
+			if (tp.dead > 5.0f)
+			{
+				deletePerson(tp);
+			}
+		}
+
 		/*// reset timer
 		if (trackingCubeTimer <= 0f) {
 			trackingCubeTimer = setTrackingCubeTimer;
@@ -131,23 +140,26 @@ public class PersonManagerScript : MonoBehaviour  {
 
 	public void addPerson(TrackedPerson tperson)
 	{
-		/*if (recentlyRemoved.ContainsKey(tperson.id))
-		{
-
-		} else if (recentlyRemoved.Count > 0)
+		if (recentlyRemoved.Count > 0)
 		{
 			foreach (int key in recentlyRemoved.Keys)
 			{
 				TrackedPerson person = recentlyRemoved[key];
+
 				if (Vector2.Distance(new Vector2(tperson.positionX, tperson.positionY), new Vector2(person.positionX, person.positionY)) < 0.3f)
 				{
-					tperson.spaceId = person.id;
-					deletePerson(person);
+					GameObject te = trackedEffects[person.id];
+					trackedEffects.Remove(person.id);
+					persons.Remove(person.id);
+					recentlyRemoved.Remove(person.id);
+					person.id = tperson.id;
+					persons[person.id] = person;
+					trackedEffects[person.id] = te;
 
 					break;
 				}
 			}
-		} else {*/
+		} else {
 			persons[tperson.id] = tperson;
 			instrumentManager.GetComponent<InstrumentManagerScript>().assignInstrument(tperson.id);
 			GameObject te = Instantiate(trackedEffect, new Vector3(tperson.positionX, 1.0f, tperson.positionY), Quaternion.identity);
@@ -155,19 +167,20 @@ public class PersonManagerScript : MonoBehaviour  {
 			ParticleSystem ps = te.GetComponent<ParticleSystem>();
 			var em = ps.emission;
 			em.rateOverDistance = 150;
-		//}
+		}
 	}
 
 	public void removePerson(TrackedPerson tperson)
 	{
-		deletePerson(tperson);
-		//recentlyRemoved[tperson.id] = tperson;
+		//deletePerson(tperson);
+		recentlyRemoved[tperson.id] = tperson;
 	}
 
 	public void deletePerson(TrackedPerson tperson)
 	{
 		instrumentManager.GetComponent<InstrumentManagerScript>().removeInstrument(tperson.id);
-		persons.Remove (tperson.id);
+		recentlyRemoved.Remove(tperson.id);
+		persons.Remove(tperson.id);
 		GameObject te = trackedEffects[tperson.id];
 		Destroy(te);
 		trackedEffects.Remove(tperson.id);

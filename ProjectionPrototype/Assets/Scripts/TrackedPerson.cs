@@ -3,9 +3,9 @@
 public class TrackedPerson
 {
 	public int id;
-	public int spaceId = -1;
+	public int spaceId;
 	public int age = 0;
-	public int dead = 0;
+	public float dead = 0.0f;
 	public float centroidX;
 	public float centroidY;
 	public float velocityX;
