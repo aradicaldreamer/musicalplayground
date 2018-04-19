@@ -90,6 +90,7 @@ public class TrackedSpaceScript : MonoBehaviour, OpenTSPSListener  {
 
 	public void sceneUpdated(OpenTSPSScene scene)
 	{
+		
 	}
 
 	private void updatePerson(TrackedPerson trackedPerson, OpenTSPSPerson person)

@@ -61,6 +61,8 @@ public class PersonManagerScript : MonoBehaviour  {
 	void FixedUpdate () {
 		instrumentManager.GetComponent<InstrumentManagerScript>().updatePersons (persons);
 
+		float averageVelocity = 0.0f;
+
 		foreach (int key in persons.Keys) {
 			TrackedPerson tp = persons[key];
 			GameObject te = trackedEffects [key];
@@ -68,12 +70,19 @@ public class PersonManagerScript : MonoBehaviour  {
 			Vector3 velocity = Vector3.zero;
 			//te.transform.position = Vector3.SmoothDamp(te.transform.position, new Vector3(tp.positionX, 1.0f, tp.positionY), ref velocity, smoothTime);
 			te.transform.position = new Vector3(tp.positionX, 1.0f, tp.positionY);
-
+			float tp_velocity = Vector2.Distance(Vector2.zero, new Vector2(tp.velocityX, tp.velocityY));
+			averageVelocity += tp_velocity;
 			/*if (trackingCubeTimer <= 0f) {
 				// creating ML tracking cubes
 				Instantiate(trackingCube, new Vector3 (tp.positionX, 0f, tp.positionY), Quaternion.identity);
 			}*/
 		}
+
+		averageVelocity /= persons.Count;
+
+		Debug.Log(averageVelocity);
+
+		instrumentManager.GetComponent<InstrumentManagerScript>().updateBPM(averageVelocity/ 100.0f);
 
 		/*List<TrackedPerson> deletedPersons = new List<TrackedPerson>();
 

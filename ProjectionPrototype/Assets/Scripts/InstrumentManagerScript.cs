@@ -173,9 +173,6 @@ public class InstrumentManagerScript : MonoBehaviour  {
 				case "lead" :
 					updateLead(instrument.currPosX, instrument.currPosY, instrument.currVelX, instrument.currVelY);
 					break;
-				case "bpm" :
-					updateBPM(instrument.currPosX, instrument.currPosY, instrument.currVelX, instrument.currVelY);
-					break;
 
 			}
 		}
@@ -357,12 +354,16 @@ public class InstrumentManagerScript : MonoBehaviour  {
 	//	hms.LeadDelayTempo = mapValue(?, 0.5f, 1.0f); //collision combined ?
 
 	}
-	private void updateBPM(float npx, float npy, float nvx, float nvy)
+	/*private void updateBPM(float npx, float npy, float nvx, float nvy)
 	{
 		AudioHelm.AudioHelmClock clock = bpmController.GetComponent<AudioHelm.AudioHelmClock>();
 		clock.bpm = mapValue (npx, -10.0f, 90.0f) + mapValue (npy,-10.0f, 90.0f);
+	}*/
 
-
+	public void updateBPM(float vel)
+	{
+		AudioHelm.AudioHelmClock clock = bpmController.GetComponent<AudioHelm.AudioHelmClock>();
+		clock.bpm = mapValue (vel, 20.0f, 300.0f);
 	}
 
 	private float mapValue(float value, float vmin, float vmax)
