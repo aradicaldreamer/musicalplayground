@@ -131,7 +131,7 @@ public class PersonManagerScript : MonoBehaviour  {
 
 	public void addPerson(TrackedPerson tperson)
 	{
-		if (recentlyRemoved.ContainsKey(tperson.id))
+		/*if (recentlyRemoved.ContainsKey(tperson.id))
 		{
 
 		} else if (recentlyRemoved.Count > 0)
@@ -147,7 +147,7 @@ public class PersonManagerScript : MonoBehaviour  {
 					break;
 				}
 			}
-		} else {
+		} else {*/
 			persons[tperson.id] = tperson;
 			instrumentManager.GetComponent<InstrumentManagerScript>().assignInstrument(tperson.id);
 			GameObject te = Instantiate(trackedEffect, new Vector3(tperson.positionX, 1.0f, tperson.positionY), Quaternion.identity);
@@ -155,12 +155,13 @@ public class PersonManagerScript : MonoBehaviour  {
 			ParticleSystem ps = te.GetComponent<ParticleSystem>();
 			var em = ps.emission;
 			em.rateOverDistance = 150;
-		}
+		//}
 	}
 
 	public void removePerson(TrackedPerson tperson)
 	{
-		recentlyRemoved[tperson.id] = tperson;
+		deletePerson(tperson);
+		//recentlyRemoved[tperson.id] = tperson;
 	}
 
 	public void deletePerson(TrackedPerson tperson)
