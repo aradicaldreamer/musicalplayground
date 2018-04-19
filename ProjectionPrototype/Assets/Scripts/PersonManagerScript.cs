@@ -75,7 +75,7 @@ public class PersonManagerScript : MonoBehaviour  {
 			}*/
 		}
 
-		List<TrackedPerson> deletedPersons = new List<TrackedPerson>();
+		/*List<TrackedPerson> deletedPersons = new List<TrackedPerson>();
 
 		foreach (int key in recentlyRemoved.Keys) {
 			TrackedPerson tp = recentlyRemoved[key];
@@ -89,7 +89,7 @@ public class PersonManagerScript : MonoBehaviour  {
 		for (int i = 0; i < deletedPersons.Count; i++)
 		{
 			deletePerson(deletedPersons[i]);
-		}
+		}*/
 
 		/*// reset timer
 		if (trackingCubeTimer <= 0f) {
@@ -152,7 +152,7 @@ public class PersonManagerScript : MonoBehaviour  {
 
 	public void addPerson(TrackedPerson tperson)
 	{
-		if (recentlyRemoved.Count > 0)
+		/*if (recentlyRemoved.Count > 0)
 		{
 			foreach (int key in recentlyRemoved.Keys)
 			{
@@ -172,7 +172,7 @@ public class PersonManagerScript : MonoBehaviour  {
 					break;
 				}
 			}
-		} else {
+		} else {*/
 			persons[tperson.id] = tperson;
 			Instrument instrument = instrumentManager.GetComponent<InstrumentManagerScript>().assignInstrument(tperson.id);
 			GameObject te = Instantiate(trackedEffect, new Vector3(tperson.positionX, 1.0f, tperson.positionY), Quaternion.identity);
@@ -189,13 +189,13 @@ public class PersonManagerScript : MonoBehaviour  {
 				te.GetComponent<PersonMarkerScript>().setColour(grad);
 			}
 			
-		}
+		//}
 	}
 
 	public void removePerson(TrackedPerson tperson)
 	{
-		//deletePerson(tperson);
-		recentlyRemoved[tperson.id] = tperson;
+		deletePerson(tperson);
+		//recentlyRemoved[tperson.id] = tperson;
 	}
 
 	public void deletePerson(TrackedPerson tperson)
