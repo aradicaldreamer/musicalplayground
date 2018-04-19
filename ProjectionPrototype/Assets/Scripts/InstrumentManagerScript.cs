@@ -38,6 +38,19 @@ public class InstrumentManagerScript : MonoBehaviour  {
 	public GameObject bpmController;
 	private Instrument[] instruments;
 
+	public GameObject drumsEffect;
+	public Gradient drumsColour;
+	public GameObject leadEffect;
+	public Gradient leadColour;
+	public GameObject bassEffect;
+	public Gradient bassColour;
+	public GameObject arpEffect;
+	public Gradient arpColour;
+	public GameObject droneEffect;
+	public Gradient droneColour;
+	public GameObject airdroneEffect;
+	public Gradient airdroneColour;
+
 	void Start() {
 		// Create an array of instrument objects
 		Instrument drums = new Instrument();
@@ -46,6 +59,8 @@ public class InstrumentManagerScript : MonoBehaviour  {
 		drums.defaultPosY = 0.0f;
 		drums.defaultVelX = 0.4f;
 		drums.defaultVelY = 0.4f;
+		drums.color = drumsColour;
+		drums.effect = drumsEffect;
 		//drums.defaultCol = 0.0f; //collision 0 -1
 		Instrument bass = new Instrument();
 		bass.name = "bass";
@@ -53,6 +68,8 @@ public class InstrumentManagerScript : MonoBehaviour  {
 		bass.defaultPosY = 0.0f;
 		bass.defaultVelX = 0.0f;
 		bass.defaultVelY = 0.0f;
+		bass.color = bassColour;
+		bass.effect = bassEffect;
 		//bass.defaultCol = 0.0f; //collision 0 -1
 		Instrument drone = new Instrument();
 		drone.name = "drone";
@@ -60,6 +77,8 @@ public class InstrumentManagerScript : MonoBehaviour  {
 		drone.defaultPosY = 0.5f;
 		drone.defaultVelX = 0.0f;
 		drone.defaultVelY = 0.0f;
+		drone.color = droneColour;
+		drone.effect = droneEffect;
 		//drone.defaultCol = 1.0f; collision 1 - 0
 		Instrument airDrone = new Instrument();
 		airDrone.name = "airDrone";
@@ -67,6 +86,8 @@ public class InstrumentManagerScript : MonoBehaviour  {
 		airDrone.defaultPosY = 0.0f;
 		airDrone.defaultVelX = 1.0f;
 		airDrone.defaultVelY = 0.0f;
+		airDrone.color = airdroneColour;
+		airDrone.effect = airdroneEffect;
 		//airDrone.defaultCol = 0.5f; //collision 0.5 - 0.6?
 		Instrument arp = new Instrument();
 		arp.name = "arp";
@@ -74,6 +95,8 @@ public class InstrumentManagerScript : MonoBehaviour  {
 		arp.defaultPosY = 0.0f;
 		arp.defaultVelX = 0.5f;
 		arp.defaultVelY = 0.5f;
+		arp.color = arpColour;
+		arp.effect = arpEffect;
 		//arp.defaultCol = 0.0f; //collision 0 - 1
 		Instrument lead = new Instrument();
 		lead.name = "lead";
@@ -81,6 +104,8 @@ public class InstrumentManagerScript : MonoBehaviour  {
 		lead.defaultPosY = 0.0f;
 		lead.defaultVelX = 0.1f;
 		lead.defaultVelY = 0.0f;
+		lead.color = leadColour;
+		lead.effect = leadEffect;
 		//lead.defaultCol = 0.5f; //collision 0.5 - 1
 		Instrument bpm = new Instrument();
 		bpm.name = "bpm";
@@ -207,7 +232,7 @@ public class InstrumentManagerScript : MonoBehaviour  {
 		}
 	}
 
-	public void assignInstrument(int personID)
+	public Instrument assignInstrument(int personID)
 	{
 		List<Instrument> instrumentsNotAssigned = new List<Instrument>();
 		for (int i = 0; i < instruments.Length; i++)
@@ -225,6 +250,9 @@ public class InstrumentManagerScript : MonoBehaviour  {
 			Instrument instrument = (Instrument)instrumentsNotAssigned[r];
 			setInstrumentEnabled (instrument, true);
 			instrument.personAttached = personID;
+			return instrument;
+		} else {
+			return null;
 		}
 	}
 
@@ -359,4 +387,7 @@ public class Instrument
 	public float newVelY = 0.0f;
 	public float currVelX = 0.0f;
 	public float currVelY = 0.0f;
+
+	public GameObject effect;
+	public Gradient color;
 }

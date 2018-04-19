@@ -174,12 +174,21 @@ public class PersonManagerScript : MonoBehaviour  {
 			}
 		} else {
 			persons[tperson.id] = tperson;
-			instrumentManager.GetComponent<InstrumentManagerScript>().assignInstrument(tperson.id);
+			Instrument instrument = instrumentManager.GetComponent<InstrumentManagerScript>().assignInstrument(tperson.id);
 			GameObject te = Instantiate(trackedEffect, new Vector3(tperson.positionX, 1.0f, tperson.positionY), Quaternion.identity);
 			trackedEffects[tperson.id] = te;
-			ParticleSystem ps = te.GetComponent<ParticleSystem>();
-			var em = ps.emission;
-			em.rateOverDistance = 150;
+			if (instrument != null) 
+			{
+				GameObject effect = Instantiate(instrument.effect, Vector3.zero, Quaternion.identity);
+				effect.transform.parent = te.transform;
+				effect.transform.localPosition = Vector3.zero;
+				te.GetComponent<PersonMarkerScript>().setColour(instrument.color);
+			} else {
+				Gradient grad = new Gradient();
+        		grad.SetKeys( new GradientColorKey[] { new GradientColorKey(Color.HSVToRGB(UnityEngine.Random.Range(0.0f, 1.0f), 1.0f, 1.0f), 0.0f), new GradientColorKey(Color.HSVToRGB(UnityEngine.Random.Range(0.0f, 1.0f), 1.0f, 1.0f), 1.0f) }, new GradientAlphaKey[] { new GradientAlphaKey(1.0f, 0.0f), new GradientAlphaKey(0.0f, 1.0f) } );
+				te.GetComponent<PersonMarkerScript>().setColour(grad);
+			}
+			
 		}
 	}
 
