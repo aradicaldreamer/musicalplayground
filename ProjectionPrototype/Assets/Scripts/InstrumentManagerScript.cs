@@ -308,8 +308,8 @@ public class InstrumentManagerScript : MonoBehaviour  {
 		hms.HihatDelayFeedback = mapValue(npx, 0.0f, 0.8f); //posX combined
 		hms.HihatDelayMix = mapValue(npy, -1.0f, 1.0f); //posY
 		hms.SnareDelayFeedback = mapValue(npy, 0.0f, 0.8f); //posY combined
-		hms.SnareDelaySync = mapValue(nvx, 0.4f, 0.45f); //velX
-		hms.HihatDelaySync = mapValue(nvy, 0.4f, 0.45f); //velY
+	//	hms.SnareDelaySync = mapValue(nvx, 0.4f, 0.45f); //velX
+	//	hms.HihatDelaySync = mapValue(nvy, 0.4f, 0.45f); //velY
 		//hms.CymbalHitEnable(); //collision
 	}
 
@@ -348,8 +348,8 @@ public class InstrumentManagerScript : MonoBehaviour  {
 		HelmManagerScript hms = helmManager.GetComponent<HelmManagerScript>();
 		hms.ArpStutter = mapValue(npx, 0.0f, 1.0f); //posX
 		hms.ArpSub = mapValue(npy, 0.0f, 1.0f); //posY
-		hms.ArpFeedback = mapValue(nvx, 0.5f, 0.6f); //velX
-		hms.ArpDelayFeedback = mapValue(nvy, 0.5f, 0.6f); //velY
+	//	hms.ArpFeedback = mapValue(nvx, 0.5f, 0.6f); //velX
+	//	hms.ArpDelayFeedback = mapValue(nvy, 0.5f, 0.6f); //velY
 		//hms.ArpSustain = mapValue(?, 0.0f, 1.0f); //collision
 	}
 
