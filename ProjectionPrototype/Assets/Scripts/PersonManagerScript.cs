@@ -47,6 +47,8 @@ public class PersonManagerScript : MonoBehaviour  {
 	public GameObject trackingCube;
 	public float trackingCubeTimer = 0f;
 	public float setTrackingCubeTimer = 0.5f;
+
+	[SerializeField] float markerMergeDistance = 0.3f;
     //[SerializeField] GameObject trackingCube;
     //[SerializeField] float setTrackingCubeTime = 0.5f;
     //[SerializeField] float trackingCubeTimer;
@@ -62,7 +64,9 @@ public class PersonManagerScript : MonoBehaviour  {
 		foreach (int key in persons.Keys) {
 			TrackedPerson tp = persons[key];
 			GameObject te = trackedEffects [key];
-			te.transform.position = new Vector3(tp.positionX, 1.0f, tp.positionY);
+			float smoothTime = 0.05f;
+			Vector3 velocity = Vector3.zero;
+			te.transform.position = Vector3.SmoothDamp(te.transform.position, new Vector3(tp.positionX, 1.0f, tp.positionY), ref velocity, smoothTime);
 
 			/*if (trackingCubeTimer <= 0f) {
 				// creating ML tracking cubes
@@ -70,13 +74,20 @@ public class PersonManagerScript : MonoBehaviour  {
 			}*/
 		}
 
+		List<TrackedPerson> deletedPersons = new List<TrackedPerson>();
+
 		foreach (int key in recentlyRemoved.Keys) {
 			TrackedPerson tp = recentlyRemoved[key];
 			tp.dead += Time.fixedDeltaTime;
 			if (tp.dead > 5.0f)
 			{
-				deletePerson(tp);
+				deletedPersons.Add(tp);
 			}
+		}
+
+		for (int i = 0; i < deletedPersons.Count; i++)
+		{
+			deletePerson(deletedPersons[i]);
 		}
 
 		/*// reset timer
@@ -146,7 +157,7 @@ public class PersonManagerScript : MonoBehaviour  {
 			{
 				TrackedPerson person = recentlyRemoved[key];
 
-				if (Vector2.Distance(new Vector2(tperson.positionX, tperson.positionY), new Vector2(person.positionX, person.positionY)) < 0.3f)
+				if (Vector2.Distance(new Vector2(tperson.positionX, tperson.positionY), new Vector2(person.positionX, person.positionY)) < markerMergeDistance)
 				{
 					GameObject te = trackedEffects[person.id];
 					trackedEffects.Remove(person.id);
@@ -182,8 +193,8 @@ public class PersonManagerScript : MonoBehaviour  {
 		recentlyRemoved.Remove(tperson.id);
 		persons.Remove(tperson.id);
 		GameObject te = trackedEffects[tperson.id];
-		Destroy(te);
 		trackedEffects.Remove(tperson.id);
+		Destroy(te);
 	}
 }
 
