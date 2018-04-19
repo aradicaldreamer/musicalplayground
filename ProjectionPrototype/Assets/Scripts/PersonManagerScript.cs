@@ -78,11 +78,13 @@ public class PersonManagerScript : MonoBehaviour  {
 			}*/
 		}
 
-		averageVelocity /= persons.Count;
+		if (persons.Count > 0) {
+			averageVelocity /= persons.Count;
 
-		Debug.Log(averageVelocity);
+			Debug.Log(averageVelocity);
 
-		instrumentManager.GetComponent<InstrumentManagerScript>().updateBPM(averageVelocity/ 100.0f);
+			instrumentManager.GetComponent<InstrumentManagerScript>().updateBPM(averageVelocity/ 100.0f);
+		}
 
 		/*List<TrackedPerson> deletedPersons = new List<TrackedPerson>();
 

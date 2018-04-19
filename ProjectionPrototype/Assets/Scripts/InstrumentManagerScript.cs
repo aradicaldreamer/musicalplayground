@@ -51,7 +51,14 @@ public class InstrumentManagerScript : MonoBehaviour  {
 	public GameObject airdroneEffect;
 	public Gradient airdroneColour;
 
+	private float currBPM = 120.0f;
+	private float newBPM = 120.0f;
+
+	private AudioHelm.AudioHelmClock clock;
+		
+
 	void Start() {
+		clock = bpmController.GetComponent<AudioHelm.AudioHelmClock>();
 		// Create an array of instrument objects
 		Instrument drums = new Instrument();
 		drums.name = "drums";
@@ -152,6 +159,9 @@ public class InstrumentManagerScript : MonoBehaviour  {
 				instrument.currVelX += (instrument.newVelX - instrument.currVelX) / 3; 
 				instrument.currVelY += (instrument.newVelY - instrument.currVelY) / 3;
 			}
+
+			currBPM += (newBPM - currBPM) / 500;
+			clock.bpm = currBPM;
 
 			switch (instrument.name)
 			{
@@ -362,8 +372,8 @@ public class InstrumentManagerScript : MonoBehaviour  {
 
 	public void updateBPM(float vel)
 	{
-		AudioHelm.AudioHelmClock clock = bpmController.GetComponent<AudioHelm.AudioHelmClock>();
-		clock.bpm = mapValue (vel, 20.0f, 300.0f);
+		newBPM = mapValue (vel, 20.0f, 400.0f);
+		Debug.Log(newBPM);
 	}
 
 	private float mapValue(float value, float vmin, float vmax)
