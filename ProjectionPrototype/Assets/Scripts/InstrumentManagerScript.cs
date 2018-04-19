@@ -218,12 +218,26 @@ public class InstrumentManagerScript : MonoBehaviour  {
 				instrumentsNotAssigned.Add(instrument);
 			}
 		}
+
 		if (instrumentsNotAssigned.Count > 0) {
 			System.Random rndwer = new System.Random();
 			int r = rndwer.Next(instrumentsNotAssigned.Count);
 			Instrument instrument = (Instrument)instrumentsNotAssigned[r];
 			setInstrumentEnabled (instrument, true);
 			instrument.personAttached = personID;
+		}
+	}
+
+	public void updateAssignIntrument(int oldId, int newId)
+	{
+		for (int i = 0; i < instruments.Length; i++)
+		{
+			Instrument instrument = instruments[i];
+			if (instrument.personAttached == oldId)
+			{
+				instrument.personAttached = newId;
+				break;
+			}
 		}
 	}
 

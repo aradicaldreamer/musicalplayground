@@ -64,9 +64,10 @@ public class PersonManagerScript : MonoBehaviour  {
 		foreach (int key in persons.Keys) {
 			TrackedPerson tp = persons[key];
 			GameObject te = trackedEffects [key];
-			float smoothTime = 0.05f;
+			float smoothTime = 0.01f;
 			Vector3 velocity = Vector3.zero;
-			te.transform.position = Vector3.SmoothDamp(te.transform.position, new Vector3(tp.positionX, 1.0f, tp.positionY), ref velocity, smoothTime);
+			//te.transform.position = Vector3.SmoothDamp(te.transform.position, new Vector3(tp.positionX, 1.0f, tp.positionY), ref velocity, smoothTime);
+			te.transform.position = new Vector3(tp.positionX, 1.0f, tp.positionY);
 
 			/*if (trackingCubeTimer <= 0f) {
 				// creating ML tracking cubes
@@ -159,6 +160,7 @@ public class PersonManagerScript : MonoBehaviour  {
 
 				if (Vector2.Distance(new Vector2(tperson.positionX, tperson.positionY), new Vector2(person.positionX, person.positionY)) < markerMergeDistance)
 				{
+					instrumentManager.GetComponent<InstrumentManagerScript>().updateAssignIntrument(person.id, tperson.id);
 					GameObject te = trackedEffects[person.id];
 					trackedEffects.Remove(person.id);
 					persons.Remove(person.id);
