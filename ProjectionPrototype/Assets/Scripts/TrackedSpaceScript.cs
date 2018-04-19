@@ -100,6 +100,6 @@ public class TrackedSpaceScript : MonoBehaviour, OpenTSPSListener  {
 		trackedPerson.velocityX = person.velocityX;
 		trackedPerson.velocityY = person.velocityY;
 		trackedPerson.positionX = (float)(originX + (person.centroidX * sizeX));
-		trackedPerson.positionY = (float)(originY + (person.centroidY * sizeY));
+		trackedPerson.positionY = (float)(originY + ((1.0f - person.centroidY) * sizeY));
 	}
 }
