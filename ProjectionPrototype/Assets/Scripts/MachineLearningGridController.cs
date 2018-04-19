@@ -44,13 +44,13 @@ public class MachineLearningGridController : MonoBehaviour {
 //		float x = message.GetFloat(0);
 //		float y = message.GetFloat(1);
 
-		HelmManagerScript.main.Chordi = message.GetFloat (0);
-		HelmManagerScript.main.Chordii = message.GetFloat (1);
-		HelmManagerScript.main.Chordiv = message.GetFloat (2);
-		HelmManagerScript.main.Chordv = message.GetFloat (3);
-		HelmManagerScript.main.Chordvi = message.GetFloat (4);
-		HelmManagerScript.main.Chordbvii = message.GetFloat (5);
-		HelmManagerScript.main.Chordvii = message.GetFloat (6);
+		HelmManagerScript.main.ChordCmaj69 = message.GetFloat (0);
+		HelmManagerScript.main.ChordAmaj69 = message.GetFloat (1);
+		HelmManagerScript.main.ChordGbmaj69 = message.GetFloat (2);
+		HelmManagerScript.main.ChordEbmaj69 = message.GetFloat (3);
+		HelmManagerScript.main.ChordA6B = message.GetFloat (4);
+		HelmManagerScript.main.ChordAbmin9 = message.GetFloat (5);
+		HelmManagerScript.main.ChordFmin9 = message.GetFloat (6);
 
 		//Debug.Log(" x = " + x);
 		//Debug.Log(" y = " + y);
