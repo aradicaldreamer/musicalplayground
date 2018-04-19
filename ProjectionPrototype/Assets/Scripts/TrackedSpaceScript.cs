@@ -63,8 +63,8 @@ public class TrackedSpaceScript : MonoBehaviour, OpenTSPSListener  {
 		//Debug.Log(" person entered with ID " + person.id);
 		TrackedPerson newPerson = new TrackedPerson();
 		newPerson.id = person.id;
-		personManagerScript.addPerson(newPerson);
 		updatePerson(newPerson, person);
+		personManagerScript.addPerson(newPerson);
 	}
 
 	public void personUpdated(OpenTSPSPerson person) {

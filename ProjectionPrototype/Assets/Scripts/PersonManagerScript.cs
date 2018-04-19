@@ -35,6 +35,7 @@ using TSPS;
 public class PersonManagerScript : MonoBehaviour  {
 	
 	public Dictionary<int,TrackedPerson> persons = new Dictionary<int,TrackedPerson>();
+	public Dictionary<int,TrackedPerson> recentlyRemoved = new Dictionary<int,TrackedPerson>();
 
 	public static PersonManagerScript main;
 
@@ -130,18 +131,39 @@ public class PersonManagerScript : MonoBehaviour  {
 
 	public void addPerson(TrackedPerson tperson)
 	{
-		persons[tperson.id] = tperson;
-		instrumentManager.GetComponent<InstrumentManagerScript>().assignInstrument(tperson.id);
-		GameObject te = Instantiate(trackedEffect, new Vector3(tperson.positionX, 0.0f, tperson.positionY), Quaternion.identity);
-		trackedEffects[tperson.id] = te;
-		ParticleSystem ps = te.GetComponent<ParticleSystem>();
-		var em = ps.emission;
-		em.rateOverDistance = 150;
-        //
+		if (recentlyRemoved.ContainsKey(tperson.id))
+		{
 
+		} else if (recentlyRemoved.Count > 0)
+		{
+			foreach (int key in recentlyRemoved.Keys)
+			{
+				TrackedPerson person = recentlyRemoved[key];
+				if (Vector2.Distance(new Vector2(tperson.positionX, tperson.positionY), new Vector2(person.positionX, person.positionY)) < 0.3f)
+				{
+					tperson.spaceId = person.id;
+					deletePerson(person);
+
+					break;
+				}
+			}
+		} else {
+			persons[tperson.id] = tperson;
+			instrumentManager.GetComponent<InstrumentManagerScript>().assignInstrument(tperson.id);
+			GameObject te = Instantiate(trackedEffect, new Vector3(tperson.positionX, 1.0f, tperson.positionY), Quaternion.identity);
+			trackedEffects[tperson.id] = te;
+			ParticleSystem ps = te.GetComponent<ParticleSystem>();
+			var em = ps.emission;
+			em.rateOverDistance = 150;
+		}
 	}
 
 	public void removePerson(TrackedPerson tperson)
+	{
+		recentlyRemoved[tperson.id] = tperson;
+	}
+
+	public void deletePerson(TrackedPerson tperson)
 	{
 		instrumentManager.GetComponent<InstrumentManagerScript>().removeInstrument(tperson.id);
 		persons.Remove (tperson.id);
