@@ -11,7 +11,8 @@ public class ChordSpawnerScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		HelmManagerScript.main.
+        HelmManagerScript.main.chords[Random.Range(0, HelmManagerScript.main.chords.Length)] = true;
+
 	}
 	
 	// Update is called once per frame
