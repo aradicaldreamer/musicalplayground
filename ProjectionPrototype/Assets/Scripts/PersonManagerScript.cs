@@ -84,6 +84,10 @@ public class PersonManagerScript : MonoBehaviour  {
 			Debug.Log(averageVelocity);
 
 			instrumentManager.GetComponent<InstrumentManagerScript>().updateBPM(averageVelocity/ 100.0f);
+			// Increase volume
+			//instrumentManager.GetComponent<InstrumentManagerScript>().
+		} else {
+			// Decrease volume
 		}
 
 		/*List<TrackedPerson> deletedPersons = new List<TrackedPerson>();
