@@ -10,7 +10,8 @@ public class ChordSpawnerScript : MonoBehaviour {
 	public float nextChordReveal = 16.0f;
 	// Use this for initialization
 	void Start () {
-		
+
+		HelmManagerScript.main.
 	}
 	
 	// Update is called once per frame

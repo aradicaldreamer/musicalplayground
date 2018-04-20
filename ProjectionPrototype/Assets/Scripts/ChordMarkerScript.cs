@@ -17,6 +17,7 @@ public class ChordMarkerScript : MonoBehaviour {
 		chordvalues[6] = HelmManagerScript.main.ChordGbmaj69;
 
 
+
 	}
 
 
