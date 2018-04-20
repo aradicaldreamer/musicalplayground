@@ -118,8 +118,8 @@ public class InstrumentManagerScript : MonoBehaviour  {
 		bpm.name = "bpm";
 		bpm.defaultPosX = 1.4f;
 
-		//instruments = new Instrument[6] { drums, bass, drone, airDrone, arp, lead };
-		instruments = new Instrument[1] { drone};
+		instruments = new Instrument[6] { drums, bass, drone, airDrone, arp, lead };
+		//instruments = new Instrument[1] { drone};
 		//instruments = new Instrument[1] { bpm};
 	}
 			
@@ -212,7 +212,7 @@ public class InstrumentManagerScript : MonoBehaviour  {
 			if (value) {
 				hms.DroneEnable ();
 			} else {
-				//hms.DroneDisable ();
+				hms.DroneDisable ();
 			}
 			break;
 			case "airDrone" :
@@ -372,7 +372,7 @@ public class InstrumentManagerScript : MonoBehaviour  {
 
 	public void updateBPM(float vel)
 	{
-	//	newBPM = mapValue (vel, 20.0f, 400.0f);
+		newBPM = mapValue (vel, 20.0f, 400.0f);
 		//Debug.Log(newBPM);
 	}
 

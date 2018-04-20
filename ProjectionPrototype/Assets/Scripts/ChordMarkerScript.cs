@@ -9,13 +9,14 @@ public class ChordMarkerScript : MonoBehaviour {
     void OnTriggerEnter(Collider other) {
 		
 		if (other.tag == "PersonMarker") {
+			destroyMarker ();
 			hm.BassEnable ();
 			hm.ArpEnable ();
 			hm.DroneEnable ();
 			hm.AirDroneEnable ();
 			hm.LeadEnable ();
 			hm.CymbalHitEnable ();
-			destroyMarker ();
+
 
 		}
 	}
