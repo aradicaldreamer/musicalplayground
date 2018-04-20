@@ -420,7 +420,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 243033864348567254, guid: 4737e585e1cc5cd4cb8af6cbf21295cf,
     type: 2}
-  m_audioClip: {fileID: 669468371}
+  m_audioClip: {fileID: 640377934}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -533,7 +533,7 @@ MonoBehaviour:
   synthParamValue14: 0
   synthParamValue15: 0
   synthParameters: []
---- !u!83 &73793569
+--- !u!83 &39172012
 AudioClip:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -541,7 +541,7 @@ AudioClip:
   m_Name: helm
   m_LoadType: 0
   m_Channels: 1
-  m_Frequency: 44100
+  m_Frequency: 48000
   m_BitsPerSample: 32
   m_Length: 0
   m_IsTrackerFormat: 0
@@ -577,7 +577,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &122336278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -630,7 +630,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 243851314537755258, guid: 4737e585e1cc5cd4cb8af6cbf21295cf,
     type: 2}
-  m_audioClip: {fileID: 1686857501}
+  m_audioClip: {fileID: 39172012}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -784,6 +784,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!83 &210524915
+AudioClip:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: helm
+  m_LoadType: 0
+  m_Channels: 1
+  m_Frequency: 48000
+  m_BitsPerSample: 32
+  m_Length: 0
+  m_IsTrackerFormat: 0
+  m_Ambisonic: 0
+  m_SubsoundIndex: 0
+  m_PreloadAudioData: 1
+  m_LoadInBackground: 0
+  m_Legacy3D: 0
+  m_Resource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_CompressionFormat: 0
+  m_EditorResource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_EditorCompressionFormat: 0
 --- !u!1 &227708688
 GameObject:
   m_ObjectHideFlags: 0
@@ -988,7 +1015,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 243543230357534562, guid: 4737e585e1cc5cd4cb8af6cbf21295cf,
     type: 2}
-  m_audioClip: {fileID: 330574732}
+  m_audioClip: {fileID: 1032247043}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -1131,7 +1158,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &265592993
 Transform:
   m_ObjectHideFlags: 0
@@ -1302,7 +1329,7 @@ MonoBehaviour:
   - notes: []
   - notes: []
   - notes: []
-  scrollPosition: {x: 0, y: 327.49878}
+  scrollPosition: {x: 0, y: 822.99866}
   autoScroll: 0
   division: 1
   zoom: 0.3
@@ -1330,7 +1357,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 243185131154767022, guid: 4737e585e1cc5cd4cb8af6cbf21295cf,
     type: 2}
-  m_audioClip: {fileID: 1037810394}
+  m_audioClip: {fileID: 1257674335}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -1430,7 +1457,7 @@ MonoBehaviour:
   synthParamValue14: 0
   synthParamValue15: 0
   synthParameters: []
---- !u!83 &330574732
+--- !u!83 &411586116
 AudioClip:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -1438,7 +1465,7 @@ AudioClip:
   m_Name: helm
   m_LoadType: 0
   m_Channels: 1
-  m_Frequency: 44100
+  m_Frequency: 48000
   m_BitsPerSample: 32
   m_Length: 0
   m_IsTrackerFormat: 0
@@ -1457,7 +1484,7 @@ AudioClip:
     m_Offset: 0
     m_Size: 0
   m_EditorCompressionFormat: 0
---- !u!83 &418086589
+--- !u!83 &500008703
 AudioClip:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -1465,7 +1492,7 @@ AudioClip:
   m_Name: helm
   m_LoadType: 0
   m_Channels: 1
-  m_Frequency: 44100
+  m_Frequency: 48000
   m_BitsPerSample: 32
   m_Length: 0
   m_IsTrackerFormat: 0
@@ -1484,7 +1511,7 @@ AudioClip:
     m_Offset: 0
     m_Size: 0
   m_EditorCompressionFormat: 0
---- !u!83 &669468371
+--- !u!83 &640377934
 AudioClip:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -1492,7 +1519,7 @@ AudioClip:
   m_Name: helm
   m_LoadType: 0
   m_Channels: 1
-  m_Frequency: 44100
+  m_Frequency: 48000
   m_BitsPerSample: 32
   m_Length: 0
   m_IsTrackerFormat: 0
@@ -1696,7 +1723,7 @@ MonoBehaviour:
   inPort: 12002
   outIP: 127.0.0.1
   outPort: 6448
---- !u!83 &922051073
+--- !u!83 &897033869
 AudioClip:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -1704,7 +1731,7 @@ AudioClip:
   m_Name: helm
   m_LoadType: 0
   m_Channels: 1
-  m_Frequency: 44100
+  m_Frequency: 48000
   m_BitsPerSample: 32
   m_Length: 0
   m_IsTrackerFormat: 0
@@ -1723,7 +1750,7 @@ AudioClip:
     m_Offset: 0
     m_Size: 0
   m_EditorCompressionFormat: 0
---- !u!83 &1037810394
+--- !u!83 &1032247043
 AudioClip:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -1731,7 +1758,7 @@ AudioClip:
   m_Name: helm
   m_LoadType: 0
   m_Channels: 1
-  m_Frequency: 44100
+  m_Frequency: 48000
   m_BitsPerSample: 32
   m_Length: 0
   m_IsTrackerFormat: 0
@@ -1855,14 +1882,14 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1141270494
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1141270493}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ecc782c8c33ed674c95f8d0f502206b6, type: 3}
   m_Name: 
@@ -1887,6 +1914,33 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!83 &1257674335
+AudioClip:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: helm
+  m_LoadType: 0
+  m_Channels: 1
+  m_Frequency: 48000
+  m_BitsPerSample: 32
+  m_Length: 0
+  m_IsTrackerFormat: 0
+  m_Ambisonic: 0
+  m_SubsoundIndex: 0
+  m_PreloadAudioData: 1
+  m_LoadInBackground: 0
+  m_Legacy3D: 0
+  m_Resource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_CompressionFormat: 0
+  m_EditorResource:
+    m_Source: 
+    m_Offset: 0
+    m_Size: 0
+  m_EditorCompressionFormat: 0
 --- !u!1 &1280478919
 GameObject:
   m_ObjectHideFlags: 0
@@ -2056,7 +2110,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1408773742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2242,7 +2296,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 243701929287169072, guid: 4737e585e1cc5cd4cb8af6cbf21295cf,
     type: 2}
-  m_audioClip: {fileID: 2050751464}
+  m_audioClip: {fileID: 500008703}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -2654,33 +2708,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1483991520}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!83 &1568798136
-AudioClip:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: helm
-  m_LoadType: 0
-  m_Channels: 1
-  m_Frequency: 44100
-  m_BitsPerSample: 32
-  m_Length: 0
-  m_IsTrackerFormat: 0
-  m_Ambisonic: 0
-  m_SubsoundIndex: 0
-  m_PreloadAudioData: 1
-  m_LoadInBackground: 0
-  m_Legacy3D: 0
-  m_Resource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_CompressionFormat: 0
-  m_EditorResource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_EditorCompressionFormat: 0
 --- !u!1 &1576510146
 GameObject:
   m_ObjectHideFlags: 0
@@ -2699,7 +2726,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1576510147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2885,7 +2912,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 243787385366582990, guid: 4737e585e1cc5cd4cb8af6cbf21295cf,
     type: 2}
-  m_audioClip: {fileID: 1568798136}
+  m_audioClip: {fileID: 897033869}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -3081,7 +3108,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 243347539910511276, guid: 4737e585e1cc5cd4cb8af6cbf21295cf,
     type: 2}
-  m_audioClip: {fileID: 73793569}
+  m_audioClip: {fileID: 411586116}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -3152,33 +3179,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!83 &1686857501
-AudioClip:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: helm
-  m_LoadType: 0
-  m_Channels: 1
-  m_Frequency: 44100
-  m_BitsPerSample: 32
-  m_Length: 0
-  m_IsTrackerFormat: 0
-  m_Ambisonic: 0
-  m_SubsoundIndex: 0
-  m_PreloadAudioData: 1
-  m_LoadInBackground: 0
-  m_Legacy3D: 0
-  m_Resource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_CompressionFormat: 0
-  m_EditorResource:
-    m_Source: 
-    m_Offset: 0
-    m_Size: 0
-  m_EditorCompressionFormat: 0
 --- !u!1 &1729582648
 GameObject:
   m_ObjectHideFlags: 0
@@ -3220,13 +3220,7 @@ MonoBehaviour:
   ArpSeq: {fileID: 1576510147}
   AirDroneSeq: {fileID: 1408773742}
   LeadSeq: {fileID: 265592994}
-  ChordCmaj69: 0
-  ChordAmaj69: 0
-  ChordGbmaj69: 0
-  ChordEbmaj69: 0
-  ChordA6B: 0
-  ChordAbmin9: 0
-  ChordFmin9: 0
+  chords: 00000000000000
   SnareDelayMix: 0
   SnareDelayFeedback: 0
   SnareDelaySync: 0.4
@@ -3736,7 +3730,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 243670129226622288, guid: 4737e585e1cc5cd4cb8af6cbf21295cf,
     type: 2}
-  m_audioClip: {fileID: 418086589}
+  m_audioClip: {fileID: 2081154209}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -3935,7 +3929,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 243808077646159228, guid: 4737e585e1cc5cd4cb8af6cbf21295cf,
     type: 2}
-  m_audioClip: {fileID: 922051073}
+  m_audioClip: {fileID: 210524915}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -4006,7 +4000,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!83 &2050751464
+--- !u!83 &2081154209
 AudioClip:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -4014,7 +4008,7 @@ AudioClip:
   m_Name: helm
   m_LoadType: 0
   m_Channels: 1
-  m_Frequency: 44100
+  m_Frequency: 48000
   m_BitsPerSample: 32
   m_Length: 0
   m_IsTrackerFormat: 0

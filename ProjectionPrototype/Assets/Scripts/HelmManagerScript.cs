@@ -150,10 +150,11 @@ public class HelmManagerScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		//Invoke("DroneEnable", time);
 		//Invoke("AirDroneEnable", time*4);
 		//Invoke("BassEnable", time*8);
 		//Invoke("DrumsEnable", time*12);
-		//Invoke("ArpEnable", time*16);
+	//	Invoke("ArpEnable", time);
 		//Invoke ("LeadEnable", time*20);
 		//Invoke ("CymbalHitEnable", time*12);
 	}
@@ -191,42 +192,42 @@ public class HelmManagerScript : MonoBehaviour {
 		for (int i = 0; i < chords.Length; i++) {
 			if (chords [i]) {
 
-                Bass.AllNotesOff();
+               // Bass.AllNotesOff();
 
                 switch (i)
                 {
                     case 0:
-                        
+					Bass.AllNotesOff();
                         Bass.NoteOn(C2);
                         Bass.NoteOn(C3);
                         break;
                     case 1:
-                        
+					Bass.AllNotesOff();
                         Bass.NoteOn(A2);
                         Bass.NoteOn(A3);
                         break;
                     case 2:
-                        
+					Bass.AllNotesOff();
                         Bass.NoteOn(Gb2);
                         Bass.NoteOn(Gb3);
                         break;
                     case 3:
-                        
+					Bass.AllNotesOff();
                         Bass.NoteOn(Eb2);
                         Bass.NoteOn(Eb3);
                         break;
                     case 4:
-                        
+					Bass.AllNotesOff();
                         Bass.NoteOn(B2);
                         Bass.NoteOn(B3);
                         break;
                     case 5:
-                        
+					Bass.AllNotesOff();
                         Bass.NoteOn(Ab2);
                         Bass.NoteOn(Ab3);
                         break;
                     case 6:
-                        
+					Bass.AllNotesOff();
                         Bass.NoteOn(F2);
                         Bass.NoteOn(F3);
                         break;
@@ -240,28 +241,32 @@ public class HelmManagerScript : MonoBehaviour {
 	}
 	public void DroneEnable()
 	{
+		Drone.AllNotesOff();
         for (int i = 0; i < chords.Length; i++)
         {
             
             if (chords[i])
             {
-                Drone.AllNotesOff();
+                //Drone.AllNotesOff();
 
                 switch (i)
                 {
                     case 0:
+					Drone.AllNotesOff();
                         Drone.NoteOn(C2, 1.0f);
                         Drone.NoteOn(E2, 1.0f);
                         Drone.NoteOn(A2, 1.0f);
                         Drone.NoteOn(D3, 1.0f);
                         break;
                     case 1:
+					Drone.AllNotesOff();
                         Drone.NoteOn(A2, 1.0f);
                         Drone.NoteOn(Db2, 1.0f);
                         Drone.NoteOn(Gb3, 1.0f);
                         Drone.NoteOn(B3, 1.0f);
                         break;
                     case 2:
+					Drone.AllNotesOff();
                         Drone.NoteOn(Gb2, 1.0f);
                         Drone.NoteOn(Bb2, 1.0f);
                         Drone.NoteOn(Eb3, 1.0f);
@@ -275,18 +280,21 @@ public class HelmManagerScript : MonoBehaviour {
                         Drone.NoteOn(F3, 1.0f);
                         break;
                     case 4:
+					Drone.AllNotesOff();
                         Drone.NoteOn(B2, 1.0f);
                         Drone.NoteOn(A3, 1.0f);
                         Drone.NoteOn(Bb3, 1.0f);
                         Drone.NoteOn(E3, 1.0f);
                         break;
                     case 5:
+					Drone.AllNotesOff();
                         Drone.NoteOn(Ab2, 1.0f);
                         Drone.NoteOn(B3, 1.0f);
                         Drone.NoteOn(Gb3, 1.0f);
                         Drone.NoteOn(Bb4, 1.0f);
                         break;
                     case 6:
+					Drone.AllNotesOff();
                         Drone.NoteOn(F2, 1.0f);
                         Drone.NoteOn(Ab3, 1.0f);
                         Drone.NoteOn(Eb3, 1.0f);
