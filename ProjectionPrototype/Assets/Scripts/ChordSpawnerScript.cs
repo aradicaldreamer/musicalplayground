@@ -7,7 +7,7 @@ public class ChordSpawnerScript : MonoBehaviour {
 	public GameObject chord;
 
 	private float timer;
-	private float nextChordReveal = 16.0f;
+	public float nextChordReveal = 16.0f;
 	// Use this for initialization
 	void Start () {
 		

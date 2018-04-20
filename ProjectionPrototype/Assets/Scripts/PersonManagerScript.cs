@@ -53,6 +53,8 @@ public class PersonManagerScript : MonoBehaviour  {
     //[SerializeField] float setTrackingCubeTime = 0.5f;
     //[SerializeField] float trackingCubeTimer;
 
+	[SerializeField] bool debug = false;
+
 	void Awake() {
 		Cursor.visible = false;
 		main = this;
@@ -69,7 +71,7 @@ public class PersonManagerScript : MonoBehaviour  {
 			float smoothTime = 0.01f;
 			Vector3 velocity = Vector3.zero;
 			//te.transform.position = Vector3.SmoothDamp(te.transform.position, new Vector3(tp.positionX, 1.0f, tp.positionY), ref velocity, smoothTime);
-			te.transform.position = new Vector3(tp.positionX, 1.0f, tp.positionY);
+			te.transform.position = new Vector3(tp.positionX, 0.0f, tp.positionY);
 			float tp_velocity = Vector2.Distance(Vector2.zero, new Vector2(tp.velocityX, tp.velocityY));
 			averageVelocity += tp_velocity;
 			/*if (trackingCubeTimer <= 0f) {
@@ -81,7 +83,10 @@ public class PersonManagerScript : MonoBehaviour  {
 		if (persons.Count > 0) {
 			averageVelocity /= persons.Count;
 
-			Debug.Log(averageVelocity);
+			if (debug) {
+				Debug.Log (averageVelocity);
+			}
+
 
 			instrumentManager.GetComponent<InstrumentManagerScript>().updateBPM(averageVelocity/ 100.0f);
 			// Increase volume
@@ -190,7 +195,7 @@ public class PersonManagerScript : MonoBehaviour  {
 		} else {*/
 			persons[tperson.id] = tperson;
 			Instrument instrument = instrumentManager.GetComponent<InstrumentManagerScript>().assignInstrument(tperson.id);
-			GameObject te = Instantiate(trackedEffect, new Vector3(tperson.positionX, 1.0f, tperson.positionY), Quaternion.identity);
+			GameObject te = Instantiate(trackedEffect, new Vector3(tperson.positionX, 0.0f, tperson.positionY), Quaternion.identity);
 			trackedEffects[tperson.id] = te;
 			if (instrument != null) 
 			{

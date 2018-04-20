@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ChordMarkerScript : MonoBehaviour {
 
-	private float[] chordvalues;  
+	private int[] chordvalues = new int[7];  
 
 	// Use this for initialization
 	void Start () {
@@ -15,20 +15,23 @@ public class ChordMarkerScript : MonoBehaviour {
 		chordvalues[4] = HelmManagerScript.main.ChordEbmaj69;
 		chordvalues[5] = HelmManagerScript.main.ChordFmin9;
 		chordvalues[6] = HelmManagerScript.main.ChordGbmaj69;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+
 	}
 
-	void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "PersonMarker")
-		{
-			destroyMarker();
+
+	void OnTriggerEnter(Collider other) {
+		
+		if (other.tag == "PersonMarker") {
+			print ("yay");
+//			for (int i = 0; i < chordvalues.Length; i++) {
+//				chordvalues [i] = 0;
+//			}
+//			chordvalues [Random.Range (0, chordvalues.Length - 1)] = 1;
+			destroyMarker ();
+
 		}
-    }
+	}
 
 	private void destroyMarker()
 	{
@@ -37,6 +40,6 @@ public class ChordMarkerScript : MonoBehaviour {
 		{
 			chordvalues[i] = (ran == i) ? 1 : 0;
 		}
-		Destroy(this);
+		Destroy(gameObject);
 	}
 }

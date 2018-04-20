@@ -373,7 +373,7 @@ public class InstrumentManagerScript : MonoBehaviour  {
 	public void updateBPM(float vel)
 	{
 		newBPM = mapValue (vel, 20.0f, 400.0f);
-		Debug.Log(newBPM);
+		//Debug.Log(newBPM);
 	}
 
 	private float mapValue(float value, float vmin, float vmax)
