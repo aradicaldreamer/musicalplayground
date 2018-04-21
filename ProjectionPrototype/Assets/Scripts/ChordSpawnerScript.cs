@@ -20,7 +20,7 @@ public class ChordSpawnerScript : MonoBehaviour {
 		if (timer > nextChordReveal)
 		{
 			if (transform.childCount == 0) spawnChord();
-			nextChordReveal = Random.Range(1.0f, 60.0f);
+			nextChordReveal = Random.Range(1.0f, 10.0f);
 			timer = 0.0f;
 		}
 	}
@@ -30,5 +30,6 @@ public class ChordSpawnerScript : MonoBehaviour {
 		GameObject newChord = Instantiate(chord, Vector3.zero, Quaternion.identity);
 		newChord.transform.parent = transform;
 		newChord.transform.position = new Vector3(Random.Range(0.2f, 1.8f), 0.0f, Random.Range(0.2f, 0.8f));
+		newChord.transform.rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
 	}
 }

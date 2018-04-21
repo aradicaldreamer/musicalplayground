@@ -7,6 +7,12 @@ public class ChordMarkerScript : MonoBehaviour {
 	HelmManagerScript hm = HelmManagerScript.main;
 	InstrumentManagerScript im = InstrumentManagerScript.main;
 
+    void Start()
+    {
+        var ps = GetComponent<ParticleSystem>().main;
+        ps.startColor = Color.HSVToRGB(Random.Range(0.0f, 1.0f), 1.0f, 1.0f);
+    }
+
     void OnTriggerEnter(Collider other) {
 		
 		if (other.tag == "PersonMarker") {
