@@ -56,7 +56,11 @@ public class InstrumentManagerScript : MonoBehaviour  {
 
 	private AudioHelm.AudioHelmClock clock;
 		
+	public static InstrumentManagerScript main;
 
+	void Awake() {
+		main = this;
+	}
 	void Start() {
 		clock = bpmController.GetComponent<AudioHelm.AudioHelmClock>();
 		// Create an array of instrument objects
@@ -110,7 +114,7 @@ public class InstrumentManagerScript : MonoBehaviour  {
 		lead.defaultPosX = 0.0f;
 		lead.defaultPosY = 0.0f;
 		lead.defaultVelX = 0.1f;
-		lead.defaultVelY = 0.0f;
+		lead.defaultVelY = 0.2f;
 		lead.color = leadColour;
 		lead.effect = leadEffect;
 		//lead.defaultCol = 0.5f; //collision 0.5 - 1
@@ -149,10 +153,10 @@ public class InstrumentManagerScript : MonoBehaviour  {
 		{
 			Instrument instrument = instruments[i];
 			if (instrument.personAttached == -1) {
-				instrument.currPosX += (instrument.defaultPosX - instrument.currPosX) / 6; 
-				instrument.currPosY += (instrument.defaultPosY - instrument.currPosY) / 6;
-				instrument.currVelX += (instrument.defaultVelX - instrument.currVelX) / 6; 
-				instrument.currVelY += (instrument.defaultVelY - instrument.currVelY) / 6;
+				instrument.currPosX += (instrument.defaultPosX - instrument.currPosX) / 3; 
+				instrument.currPosY += (instrument.defaultPosY - instrument.currPosY) / 3;
+				instrument.currVelX += (instrument.defaultVelX - instrument.currVelX) / 3; 
+				instrument.currVelY += (instrument.defaultVelY - instrument.currVelY) / 3;
 			} else {
 				instrument.currPosX += (instrument.newPosX - instrument.currPosX) / 3; 
 				instrument.currPosY += (instrument.newPosY - instrument.currPosY) / 3;
@@ -263,9 +267,16 @@ public class InstrumentManagerScript : MonoBehaviour  {
 		}
 	}
 
-	public void updateAssignIntrument(int oldId, int newId)
+	public void updateAssignInstrument()
 	{
 		for (int i = 0; i < instruments.Length; i++)
+		{
+			Instrument instrument = instruments[i];
+			if (instrument.personAttached > -1) {
+				setInstrumentEnabled (instrument, true);
+			}
+
+		/*for (int i = 0; i < instruments.Length; i++)
 		{
 			Instrument instrument = instruments[i];
 			if (instrument.personAttached == oldId)
@@ -273,7 +284,8 @@ public class InstrumentManagerScript : MonoBehaviour  {
 				instrument.personAttached = newId;
 				break;
 			}
-		}
+		}*/
+	}
 	}
 
 	public void removeInstrument(int personID)

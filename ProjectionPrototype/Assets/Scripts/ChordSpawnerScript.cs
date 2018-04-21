@@ -10,7 +10,6 @@ public class ChordSpawnerScript : MonoBehaviour {
 	public float nextChordReveal = 16.0f;
 	// Use this for initialization
 	void Start () {
-
         HelmManagerScript.main.chords[Random.Range(0, HelmManagerScript.main.chords.Length)] = true;
 
 	}
@@ -21,7 +20,7 @@ public class ChordSpawnerScript : MonoBehaviour {
 		if (timer > nextChordReveal)
 		{
 			if (transform.childCount == 0) spawnChord();
-			nextChordReveal = Random.Range(10.0f, 20.0f);
+			nextChordReveal = Random.Range(1.0f, 60.0f);
 			timer = 0.0f;
 		}
 	}

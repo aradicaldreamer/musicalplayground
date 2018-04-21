@@ -5,19 +5,14 @@ using UnityEngine;
 public class ChordMarkerScript : MonoBehaviour {
 
 	HelmManagerScript hm = HelmManagerScript.main;
+	InstrumentManagerScript im = InstrumentManagerScript.main;
 
     void OnTriggerEnter(Collider other) {
 		
 		if (other.tag == "PersonMarker") {
 			destroyMarker ();
-			hm.BassEnable ();
-			hm.ArpEnable ();
-			hm.DroneEnable ();
-			hm.AirDroneEnable ();
-			hm.LeadEnable ();
+			im.updateAssignInstrument ();
 			hm.CymbalHitEnable ();
-
-
 		}
 	}
 
