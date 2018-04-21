@@ -330,8 +330,8 @@ public class InstrumentManagerScript : MonoBehaviour  {
 		HelmManagerScript hms = helmManager.GetComponent<HelmManagerScript>();
 		hms.BassFeedbackTune = mapValue(npx, 0.0f, 1.0f);
 		hms.BassFeedbackAmount = mapValue(npy, 0.0f, 1.0f);
-		hms.BassSubShuffle = mapValue(nvx, 0.0f, 1.0f);
-		hms.BassOSC2tune = mapValue(nvy, 0.0f, 1.0f);
+		//hms.BassSubShuffle = mapValue(nvx, 0.0f, 1.0f);
+		//hms.BassOSC2tune = mapValue(nvy, 0.0f, 1.0f);
 		//hms.BassReso = mapValue(?, 0.0f, 1.0f); //collision
 	}
 
@@ -340,8 +340,8 @@ public class InstrumentManagerScript : MonoBehaviour  {
 		HelmManagerScript hms = helmManager.GetComponent<HelmManagerScript>();
 		hms.DroneX = mapValue(npx, 0.0f, 0.9f);
 		hms.DroneY = mapValue(npy, 0.9f, 0.0f);
-		hms.DroneFeedback = mapValue (nvx, 0.0f, -0.1f);
-		hms.DroneMod = mapValue (nvy, 0.0f, 0.2f);
+		//hms.DroneFeedback = mapValue (nvx, 0.0f, -0.1f);
+		//hms.DroneMod = mapValue (nvy, 0.0f, 0.2f);
 		//hms.AirDronefilterBlend = mapValue (? , 1.0f, 0.0f); //collision
 	}
 
@@ -350,8 +350,8 @@ public class InstrumentManagerScript : MonoBehaviour  {
 		HelmManagerScript hms = helmManager.GetComponent<HelmManagerScript>();
 		hms.AirDroneX = mapValue(npx, 1.0f, 0.0f);
 		hms.AirDroneY = mapValue(npy, 0.0f, 1.0f);
-		hms.AirDronefilterBlend = mapValue(nvx, 1.0f, 0.0f);
-		hms.AirDroneArpOn = mapValue(nvy, 0.0f, 1.0f);
+		//hms.AirDronefilterBlend = mapValue(nvx, 1.0f, 0.0f);
+		//hms.AirDroneArpOn = mapValue(nvy, 0.0f, 1.0f);
 		//hms.AirDroneDelayTempo = mapValue(nvx, 0.0f, 0.0f); //collision
 	}
 
@@ -370,8 +370,8 @@ public class InstrumentManagerScript : MonoBehaviour  {
 		HelmManagerScript hms = helmManager.GetComponent<HelmManagerScript>();
 		hms.LeadMix = mapValue(npx, 0.0f, 1.0f); //posX
 		hms.LeadSub = mapValue(npy, 1.0f, 0.0f); //posY
-		hms.LeadSustain = mapValue(nvx, 0.1f, 0.5f); //velX
-		hms.LeadAttack = mapValue(nvy,0.0f,0.2f); //velY
+		//hms.LeadSustain = mapValue(npx, 0.1f, 0.5f); //velX
+		//hms.LeadAttack = mapValue(npy,0.0f,0.2f); //velY
 	//	hms.LeadDelaySync = mapValue(?, 0.5f, 1.0f); //collision ?
 	//	hms.LeadDelayTempo = mapValue(?, 0.5f, 1.0f); //collision combined ?
 
