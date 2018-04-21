@@ -11,7 +11,7 @@ public class ChordMarkerScript : MonoBehaviour {
 		
 		if (other.tag == "PersonMarker") {
 			destroyMarker ();
-			im.updateAssignInstrument ();
+			im.updateAssignInstrument();
 			hm.CymbalHitEnable ();
 		}
 	}
