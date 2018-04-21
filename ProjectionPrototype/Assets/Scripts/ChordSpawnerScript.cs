@@ -20,7 +20,7 @@ public class ChordSpawnerScript : MonoBehaviour {
 		if (timer > nextChordReveal)
 		{
 			if (transform.childCount == 0) spawnChord();
-			nextChordReveal = Random.Range(1.0f, 10.0f);
+			nextChordReveal = Random.Range(1.0f, 60.0f);
 			timer = 0.0f;
 		}
 	}
